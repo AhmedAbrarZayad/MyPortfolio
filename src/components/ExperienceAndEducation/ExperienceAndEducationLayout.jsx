@@ -4,7 +4,7 @@ import Education from './Education';
 
 const ExperienceAndEducationLayout = () => {
     return (
-        <section className="relative z-10 w-full py-24 px-6 md:px-12 lg:px-24 bg-white dark:bg-[#080808] border-t border-gray-200 dark:border-white/5">
+        <section id="experience" className="relative z-10 w-full py-24 px-6 md:px-12 lg:px-24 bg-white dark:bg-[#080808] border-t border-gray-200 dark:border-white/5">
             <div className="max-w-7xl mx-auto">
                 <div className="mb-16">
                     <h3 className="text-primary font-bold uppercase tracking-widest text-sm mb-2">Resume</h3>

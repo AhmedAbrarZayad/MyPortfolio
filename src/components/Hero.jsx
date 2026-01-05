@@ -3,7 +3,7 @@ import BackgroundPic from '../assets/BackgroundPic.png';
 import { motion } from 'framer-motion';
 
 const Hero = () => {
-    const text = "Ahmed Abrar Zayad — Full-Stack Web Developer, I specialize in building scalable, high-performance web and mobile applications, crafting end-to-end solutions with modern frameworks, clean architecture, and AI-powered systems that turn complex ideas into reliable, user-friendly products.";
+    const text = "Ahmed Abrar Zayad — Full-Stack Developer, I specialize in building scalable, high-performance web and mobile applications, crafting end-to-end solutions with modern frameworks, clean architecture, and AI-powered systems that turn complex ideas into reliable, user-friendly products.";
     
     const container = {
         hidden: { opacity: 0 },
@@ -22,7 +22,7 @@ const Hero = () => {
 
     return (
         <>
-            <div style={{
+            <div id="hero" style={{
                 backgroundImage: `url(${BackgroundPic})`,
                 backgroundSize: 'cover',
                 backgroundPosition: 'center',

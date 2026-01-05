@@ -7,30 +7,23 @@ const SocialSidebar = () => {
                 <a 
                     aria-label="Instagram" 
                     className="w-10 h-10 flex items-center justify-center rounded-full hover:bg-white/10 text-gray-400 hover:text-white transition-all duration-300" 
-                    href="#"
+                    href="https://www.instagram.com/ahmedabrarzayad/"
                 >
                     <i className="ph ph-instagram-logo text-xl"></i>
                 </a>
                 <a 
-                    aria-label="Twitter X" 
-                    className="w-10 h-10 flex items-center justify-center rounded-full hover:bg-white/10 text-gray-400 hover:text-white transition-all duration-300" 
-                    href="#"
-                >
-                    <i className="ph ph-x-logo text-xl"></i>
-                </a>
-                <a 
-                    aria-label="YouTube" 
-                    className="w-10 h-10 flex items-center justify-center rounded-full hover:bg-white/10 text-gray-400 hover:text-white transition-all duration-300" 
-                    href="#"
-                >
-                    <i className="ph ph-youtube-logo text-xl"></i>
-                </a>
-                <a 
                     aria-label="GitHub" 
                     className="w-10 h-10 flex items-center justify-center rounded-full hover:bg-white/10 text-gray-400 hover:text-white transition-all duration-300" 
-                    href="#"
+                    href="https://github.com/AhmedAbrarZayad"
                 >
                     <i className="ph ph-github-logo text-xl"></i>
+                </a>
+                <a
+                    aria-label="LinkedIn" 
+                    className="w-10 h-10 flex items-center justify-center rounded-full hover:bg-white/10 text-gray-400 hover:text-white transition-all duration-300" 
+                    href="https://www.linkedin.com/in/ahmedabrarzayad/"
+                >
+                    <i className="ph ph-linkedin-logo text-xl"></i>
                 </a>
             </div>
         </div>
