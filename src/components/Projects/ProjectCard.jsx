@@ -1,8 +1,51 @@
-import React from 'react';
+import React, { useRef, useState } from 'react';
+import { motion } from 'framer-motion';
 
 const ProjectCard = ({ image, title, description, technologies, link, linkType }) => {
+    const ref = useRef(null);
+    const [position, setPosition] = useState({ x: 0, y: 0 });
+
+    const handleMouseMove = (e) => {
+        if (!ref.current) return;
+        
+        const rect = ref.current.getBoundingClientRect();
+        const centerX = rect.left + rect.width / 2;
+        const centerY = rect.top + rect.height / 2;
+        
+        const distanceX = e.clientX - centerX;
+        const distanceY = e.clientY - centerY;
+        
+        // Magnetic pull strength
+        const strength = 0.15;
+        
+        setPosition({
+            x: distanceX * strength,
+            y: distanceY * strength
+        });
+    };
+
+    const handleMouseLeave = () => {
+        setPosition({ x: 0, y: 0 });
+    };
+
     return (
-        <div className="group cursor-pointer">
+        <motion.div 
+            ref={ref}
+            className="group cursor-pointer"
+            onMouseMove={handleMouseMove}
+            onMouseLeave={handleMouseLeave}
+            animate={{
+                x: position.x,
+                y: position.y
+            }}
+            transition={{
+                type: "spring",
+                stiffness: 150,
+                damping: 15,
+                mass: 0.1
+            }}
+            whileHover={{ scale: 1.02 }}
+        >
             <div className="relative overflow-hidden rounded-lg aspect-[4/3] mb-4 bg-gray-100 dark:bg-white/5">
                 <img 
                     alt={title} 
@@ -10,9 +53,13 @@ const ProjectCard = ({ image, title, description, technologies, link, linkType }
                     src={image}
                 />
                 <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                    <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center text-black">
+                    <motion.div 
+                        className="w-12 h-12 bg-white rounded-full flex items-center justify-center text-black"
+                        whileHover={{ scale: 1.2, rotate: 45 }}
+                        transition={{ duration: 0.3 }}
+                    >
                         <i className="ph ph-arrow-up-right text-xl"></i>
-                    </div>
+                    </motion.div>
                 </div>
             </div>
             <h4 className="text-xl font-bold text-black dark:text-white mb-1 group-hover:text-primary transition-colors">
@@ -45,7 +92,7 @@ const ProjectCard = ({ image, title, description, technologies, link, linkType }
                     </>
                 )}
             </a>
-        </div>
+        </motion.div>
     );
 };
 
