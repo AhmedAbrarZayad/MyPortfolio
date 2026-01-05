@@ -6,6 +6,7 @@ const ProjectCard = ({ project, index }) => {
     const navigate = useNavigate();
     const ref = useRef(null);
     const [position, setPosition] = useState({ x: 0, y: 0 });
+    const [tilt, setTilt] = useState({ rotateX: 0, rotateY: 0 });
 
     const handleMouseMove = (e) => {
         if (!ref.current) return;
@@ -24,10 +25,20 @@ const ProjectCard = ({ project, index }) => {
             x: distanceX * strength,
             y: distanceY * strength
         });
+
+        // 3D tilt effect
+        const tiltX = ((e.clientY - rect.top) / rect.height - 0.5) * -20;
+        const tiltY = ((e.clientX - rect.left) / rect.width - 0.5) * 20;
+        
+        setTilt({
+            rotateX: tiltX,
+            rotateY: tiltY
+        });
     };
 
     const handleMouseLeave = () => {
         setPosition({ x: 0, y: 0 });
+        setTilt({ rotateX: 0, rotateY: 0 });
     };
 
     const handleViewMore = () => {
@@ -38,29 +49,42 @@ const ProjectCard = ({ project, index }) => {
         <motion.div 
             ref={ref}
             className="bg-gray-50 dark:bg-white/5 rounded-2xl overflow-hidden border border-gray-200 dark:border-white/10 group hover:border-primary transition-all duration-300 cursor-pointer"
+            style={{
+                perspective: 1000,
+            }}
             onMouseMove={handleMouseMove}
             onMouseLeave={handleMouseLeave}
             onClick={handleViewMore}
             animate={{
                 x: position.x,
-                y: position.y
+                y: position.y,
+                rotateX: tilt.rotateX,
+                rotateY: tilt.rotateY,
             }}
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{
-                type: "spring",
-                stiffness: 150,
-                damping: 15,
-                mass: 0.1,
-                delay: index * 0.1
+                x: { type: "spring", stiffness: 150, damping: 15 },
+                y: { type: "spring", stiffness: 150, damping: 15 },
+                rotateX: { type: "spring", stiffness: 200, damping: 20 },
+                rotateY: { type: "spring", stiffness: 200, damping: 20 },
+                opacity: { duration: 0.5, delay: index * 0.1 },
             }}
         >
             <div className="relative h-60 overflow-hidden">
-                <img 
+                <motion.img 
                     alt={project.title} 
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" 
+                    className="w-full h-full object-cover" 
                     src={project.image}
+                    whileHover={{ scale: 1.1 }}
+                    transition={{ duration: 0.6, ease: "easeOut" }}
+                />
+                <motion.div 
+                    className="absolute inset-0 bg-primary/20"
+                    initial={{ opacity: 0 }}
+                    whileHover={{ opacity: 1 }}
+                    transition={{ duration: 0.3 }}
                 />
                 <div className="absolute top-4 right-4">
                     <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary text-white">

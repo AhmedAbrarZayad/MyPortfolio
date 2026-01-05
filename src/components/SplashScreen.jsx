@@ -68,16 +68,55 @@ const SplashScreen = ({ onComplete }) => {
 
     return (
         <motion.div 
-            className="fixed inset-0 bg-black z-50 flex items-center justify-center"
+            className="fixed inset-0 bg-gradient-to-br from-black via-gray-900 to-black z-50 flex items-center justify-center overflow-hidden"
             variants={containerVariants}
             initial="hidden"
             animate="visible"
             exit="exit"
         >
-            <div className="glass-panel rounded-3xl p-12 md:p-20 max-w-3xl mx-4 relative overflow-hidden">
+            {/* Animated Orbs */}
+            <motion.div
+                className="absolute top-20 right-20 w-96 h-96 bg-primary/20 rounded-full blur-3xl"
+                animate={{
+                    scale: [1, 1.5, 1],
+                    x: [0, 50, 0],
+                    y: [0, -50, 0],
+                }}
+                transition={{
+                    duration: 6,
+                    repeat: Infinity,
+                    ease: "easeInOut"
+                }}
+            />
+            <motion.div
+                className="absolute bottom-20 left-20 w-80 h-80 bg-blue-500/20 rounded-full blur-3xl"
+                animate={{
+                    scale: [1, 1.3, 1],
+                    x: [0, -30, 0],
+                    y: [0, 30, 0],
+                }}
+                transition={{
+                    duration: 8,
+                    repeat: Infinity,
+                    ease: "easeInOut"
+                }}
+            />
+            
+            <div className="glass-panel rounded-3xl p-12 md:p-20 max-w-3xl mx-4 relative overflow-hidden backdrop-blur-xl bg-white/5 border border-white/10">
                 {/* Animated background gradient */}
                 <div className="absolute inset-0 opacity-10">
-                    <div className="absolute top-0 right-0 w-64 h-64 bg-primary rounded-full blur-3xl animate-pulse"></div>
+                    <motion.div 
+                        className="absolute top-0 right-0 w-64 h-64 bg-primary rounded-full blur-3xl"
+                        animate={{
+                            scale: [1, 1.2, 1],
+                            rotate: [0, 180, 360]
+                        }}
+                        transition={{
+                            duration: 4,
+                            repeat: Infinity,
+                            ease: "linear"
+                        }}
+                    />
                     <div className="absolute bottom-0 left-0 w-64 h-64 bg-primary rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }}></div>
                 </div>
 

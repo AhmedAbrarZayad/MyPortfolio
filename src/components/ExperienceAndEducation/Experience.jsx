@@ -1,4 +1,5 @@
 import React from 'react';
+import { motion } from 'framer-motion';
 
 const Experience = () => {
     const experiences = [
@@ -13,20 +14,48 @@ const Experience = () => {
 
     return (
         <div>
-            <div className="flex items-center gap-3 mb-8">
-                <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center text-primary shrink-0">
+            <motion.div 
+                className="flex items-center gap-3 mb-8"
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5 }}
+            >
+                <motion.div 
+                    className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center text-primary shrink-0"
+                    whileHover={{ scale: 1.1, rotate: 5 }}
+                >
                     <i className="ph ph-briefcase text-xl"></i>
-                </div>
+                </motion.div>
                 <h4 className="text-2xl font-bold text-black dark:text-white">Experience</h4>
-            </div>
+            </motion.div>
             <div className="relative border-l border-gray-200 dark:border-white/10 ml-3 md:ml-5 space-y-12">
                 {experiences.map((exp, index) => (
-                    <div key={index} className="relative pl-8">
-                        <span className={`absolute -left-[5px] top-2 h-2.5 w-2.5 rounded-full ${
+                    <motion.div 
+                        key={index} 
+                        className="relative pl-8"
+                        initial={{ opacity: 0, x: -30 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.5, delay: index * 0.2 }}
+                        whileHover={{ x: 5 }}
+                    >
+                        <motion.span 
+                            className={`absolute -left-[5px] top-2 h-2.5 w-2.5 rounded-full ${
                             exp.isActive 
                                 ? 'bg-primary ring-4 ring-white dark:ring-[#080808]' 
                                 : 'bg-gray-300 dark:bg-gray-600 ring-4 ring-white dark:ring-[#080808]'
-                        }`}></span>
+                        }`}
+                            animate={exp.isActive ? {
+                                scale: [1, 1.2, 1],
+                                opacity: [1, 0.8, 1]
+                            } : {}}
+                            transition={{
+                                duration: 2,
+                                repeat: Infinity,
+                                ease: "easeInOut"
+                            }}
+                        />
                         <span className={`text-xs font-bold tracking-wide uppercase mb-2 block ${
                             exp.isActive ? 'text-primary' : 'text-gray-500'
                         }`}>
@@ -37,7 +66,7 @@ const Experience = () => {
                         <p className="text-gray-600 dark:text-gray-400 leading-relaxed text-sm">
                             {exp.description}
                         </p>
-                    </div>
+                    </motion.div>
                 ))}
             </div>
         </div>

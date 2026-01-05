@@ -1,7 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { motion, useScroll, useSpring } from 'framer-motion';
 
 const NavBar = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const { scrollYProgress } = useScroll();
+    const scaleX = useSpring(scrollYProgress, {
+        stiffness: 100,
+        damping: 30,
+        restDelta: 0.001
+    });
 
     const navLinks = [
         { name: 'Home', href: '#hero' },
@@ -30,6 +37,10 @@ const NavBar = () => {
 
     return (
         <nav className="fixed top-0 w-full z-50 px-6 py-6 md:px-12 flex justify-between items-center bg-black/90 backdrop-blur-md">
+            <motion.div
+                className="absolute bottom-0 left-0 right-0 h-1 bg-primary origin-left"
+                style={{ scaleX }}
+            />
             <div className="flex items-center gap-1 group cursor-pointer z-50" onClick={(e) => scrollToSection(e, '#hero')}>
                 <span className="text-xl md:text-2xl font-display font-bold tracking-tight text-black dark:text-white group-hover:text-primary transition-colors duration-300">
                     Ahmed Abrar Zayad

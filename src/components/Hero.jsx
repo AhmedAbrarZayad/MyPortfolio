@@ -1,8 +1,13 @@
 import React from 'react';
 import BackgroundPic from '../assets/BackgroundPic.png';
-import { motion } from 'framer-motion';
+import { motion, useScroll, useTransform } from 'framer-motion';
 
 const Hero = () => {
+    const { scrollY } = useScroll();
+    const y1 = useTransform(scrollY, [0, 500], [0, 150]);
+    const y2 = useTransform(scrollY, [0, 500], [0, -100]);
+    const opacity = useTransform(scrollY, [0, 300], [1, 0]);
+    
     const text = "Ahmed Abrar Zayad — Full-Stack Developer, I specialize in building scalable, high-performance web and mobile applications, crafting end-to-end solutions with modern frameworks, clean architecture, and AI-powered systems that turn complex ideas into reliable, user-friendly products.";
     
     const container = {
@@ -27,7 +32,35 @@ const Hero = () => {
                 backgroundSize: 'cover',
                 backgroundPosition: 'center',
                 backgroundRepeat: 'no-repeat'
-            }} className='min-h-screen relative flex flex-col justify-between px-6 md:px-12 lg:px-24 py-24'>
+            }} className='min-h-screen relative flex flex-col justify-between px-6 md:px-12 lg:px-24 py-24 overflow-hidden'>
+                
+                {/* Floating Animated Elements */}
+                <motion.div
+                    className="absolute top-20 right-20 w-64 h-64 bg-primary/10 rounded-full blur-3xl"
+                    animate={{
+                        scale: [1, 1.2, 1],
+                        x: [0, 30, 0],
+                        y: [0, -30, 0],
+                    }}
+                    transition={{
+                        duration: 8,
+                        repeat: Infinity,
+                        ease: "easeInOut"
+                    }}
+                />
+                <motion.div
+                    className="absolute bottom-40 left-20 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl"
+                    animate={{
+                        scale: [1, 1.3, 1],
+                        x: [0, -40, 0],
+                        y: [0, 40, 0],
+                    }}
+                    transition={{
+                        duration: 10,
+                        repeat: Infinity,
+                        ease: "easeInOut"
+                    }}
+                />
                 
                 {/* Available for work - Top Left */}
                 <div className="flex items-center gap-3">
@@ -41,20 +74,35 @@ const Hero = () => {
                 </div>
 
                 {/* Main Content - Middle */}
-                <div className="flex-1 flex flex-col justify-center">
-                    <h1 className="font-display font-extrabold text-[20vw] md:text-[120px] lg:text-[140px] leading-[0.85] tracking-tighter text-white uppercase mb-4">
+                <motion.div className="flex-1 flex flex-col justify-center" style={{ y: y2, opacity }}>
+                    <motion.h1 
+                        className="font-display font-extrabold text-[20vw] md:text-[120px] lg:text-[140px] leading-[0.85] tracking-tighter text-white uppercase mb-4"
+                        initial={{ opacity: 0, y: 100 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.8, ease: "easeOut" }}
+                    >
                         Zayad
-                    </h1>
-                    <div className="flex items-center gap-4">
-                        <div className="h-[2px] w-16 bg-white"></div>
+                    </motion.h1>
+                    <motion.div 
+                        className="flex items-center gap-4"
+                        initial={{ opacity: 0, x: -50 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
+                    >
+                        <motion.div 
+                            className="h-[2px] bg-white"
+                            initial={{ width: 0 }}
+                            animate={{ width: 64 }}
+                            transition={{ duration: 0.8, delay: 0.5 }}
+                        />
                         <h2 className="text-xl md:text-2xl font-medium tracking-wide text-gray-300">
                             Full Stack Developer
                         </h2>
-                    </div>
-                </div>
+                    </motion.div>
+                </motion.div>
 
                 {/* Bottom Section - Description and Rate */}
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-end">
+                <motion.div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-end" style={{ y: y1 }}>
                     {/* Bottom Left - Description */}
                     <div className="max-w-xl">
                         <i className="ph ph-quotes text-5xl text-gray-700 mb-6 block"></i>
@@ -72,7 +120,7 @@ const Hero = () => {
                         </motion.p>
                     </div>
 
-                </div>
+                </motion.div>
 
             </div>
         </>

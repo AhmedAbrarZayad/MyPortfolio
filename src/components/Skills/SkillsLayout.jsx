@@ -162,7 +162,21 @@ const SkillsLayout = () => {
 
     return (
         <section id="skills" className="relative z-10 w-full py-24 px-6 md:px-12 lg:px-24 bg-background-light dark:bg-background-dark border-t border-gray-200 dark:border-white/5 overflow-hidden">
-            <div className="max-w-7xl mx-auto">
+            {/* Floating Background Element */}
+            <motion.div
+                className="absolute bottom-0 left-1/4 w-96 h-96 bg-primary/5 rounded-full blur-3xl"
+                animate={{
+                    scale: [1, 1.3, 1],
+                    x: [0, -50, 0],
+                    y: [0, 50, 0],
+                }}
+                transition={{
+                    duration: 15,
+                    repeat: Infinity,
+                    ease: "easeInOut"
+                }}
+            />
+            <div className="max-w-7xl mx-auto relative z-10">
                 <motion.div 
                     className="mb-16"
                     initial={{ opacity: 0, y: -20 }}
@@ -170,8 +184,24 @@ const SkillsLayout = () => {
                     viewport={{ once: true }}
                     transition={{ duration: 0.6 }}
                 >
-                    <h3 className="text-primary font-bold uppercase tracking-widest text-sm mb-2">Expertise</h3>
-                    <h2 className="text-4xl md:text-5xl font-display font-bold text-black dark:text-white">Technical Skills</h2>
+                    <motion.h3 
+                        className="text-primary font-bold uppercase tracking-widest text-sm mb-2"
+                        initial={{ opacity: 0, x: -20 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.5, delay: 0.1 }}
+                    >
+                        Expertise
+                    </motion.h3>
+                    <motion.h2 
+                        className="text-4xl md:text-5xl font-display font-bold text-black dark:text-white"
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.5, delay: 0.2 }}
+                    >
+                        Technical Skills
+                    </motion.h2>
                 </motion.div>
 
                 {/* Two Column Layout */}

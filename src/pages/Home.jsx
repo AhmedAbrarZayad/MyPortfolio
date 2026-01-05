@@ -6,10 +6,14 @@ import ExperienceAndEducationLayout from '../components/ExperienceAndEducation/E
 import SkillsLayout from '../components/Skills/SkillsLayout';
 import ProjectLayout from '../components/Projects/ProjectLayout';
 import ContactLayout from '../components/Contact/ContactLayout';
+import AnimatedBackground from '../components/AnimatedBackground';
+import ScrollIndicator from '../components/ScrollIndicator';
 
 const Home = () => {
     return (
         <div>
+            <AnimatedBackground />
+            <ScrollIndicator />
             <SocialSidebar />
             <Hero />
             <AboutMe />
