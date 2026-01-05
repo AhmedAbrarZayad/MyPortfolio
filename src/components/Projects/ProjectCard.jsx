@@ -1,7 +1,9 @@
 import React, { useRef, useState } from 'react';
 import { motion } from 'framer-motion';
+import { useNavigate } from 'react-router-dom';
 
-const ProjectCard = ({ image, title, description, technologies, link, linkType }) => {
+const ProjectCard = ({ project, index }) => {
+    const navigate = useNavigate();
     const ref = useRef(null);
     const [position, setPosition] = useState({ x: 0, y: 0 });
 
@@ -28,70 +30,102 @@ const ProjectCard = ({ image, title, description, technologies, link, linkType }
         setPosition({ x: 0, y: 0 });
     };
 
+    const handleViewMore = () => {
+        navigate(`/project/${project.id}`);
+    };
+
     return (
         <motion.div 
             ref={ref}
-            className="group cursor-pointer"
+            className="bg-gray-50 dark:bg-white/5 rounded-2xl overflow-hidden border border-gray-200 dark:border-white/10 group hover:border-primary transition-all duration-300 cursor-pointer"
             onMouseMove={handleMouseMove}
             onMouseLeave={handleMouseLeave}
+            onClick={handleViewMore}
             animate={{
                 x: position.x,
                 y: position.y
             }}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
             transition={{
                 type: "spring",
                 stiffness: 150,
                 damping: 15,
-                mass: 0.1
+                mass: 0.1,
+                delay: index * 0.1
             }}
-            whileHover={{ scale: 1.02 }}
         >
-            <div className="relative overflow-hidden rounded-lg aspect-[4/3] mb-4 bg-gray-100 dark:bg-white/5">
+            <div className="relative h-60 overflow-hidden">
                 <img 
-                    alt={title} 
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105 opacity-80 group-hover:opacity-100" 
-                    src={image}
+                    alt={project.title} 
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" 
+                    src={project.image}
                 />
-                <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                <div className="absolute top-4 right-4">
+                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary text-white">
+                        {project.category}
+                    </span>
+                </div>
+                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                    <motion.button 
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                        className="px-8 py-3 bg-primary text-white rounded-full font-medium hover:bg-primary/90 transition-colors flex items-center gap-2"
+                    >
+                        View Details <i className="ph ph-arrow-right"></i>
+                    </motion.button>
+                </div>
+            </div>
+            <div className="p-6">
+                <div className="flex items-start justify-between mb-3">
+                    <h3 className="text-xl font-bold text-black dark:text-white">{project.title}</h3>
                     <motion.div 
-                        className="w-12 h-12 bg-white rounded-full flex items-center justify-center text-black"
-                        whileHover={{ scale: 1.2, rotate: 45 }}
-                        transition={{ duration: 0.3 }}
+                        className="text-gray-400 dark:text-gray-500"
+                        whileHover={{ x: 5 }}
                     >
                         <i className="ph ph-arrow-up-right text-xl"></i>
                     </motion.div>
                 </div>
-            </div>
-            <h4 className="text-xl font-bold text-black dark:text-white mb-1 group-hover:text-primary transition-colors">
-                {title}
-            </h4>
-            <p className="text-sm text-gray-500 dark:text-gray-400 line-clamp-2">
-                {description}
-            </p>
-            <div className="flex flex-wrap gap-2 mt-3">
-                {technologies.map((tech, index) => (
-                    <span 
-                        key={index}
-                        className="text-xs font-medium px-2 py-1 rounded bg-gray-100 dark:bg-white/10 text-gray-600 dark:text-gray-300"
+                <p className="text-gray-600 dark:text-gray-400 text-sm mb-4 leading-relaxed line-clamp-3">
+                    {project.description}
+                </p>
+                <div className="flex flex-wrap gap-2 mb-4">
+                    {project.technologies.slice(0, 4).map((tech, idx) => (
+                        <span 
+                            key={idx}
+                            className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary border border-primary/20"
+                        >
+                            {tech}
+                        </span>
+                    ))}
+                    {project.technologies.length > 4 && (
+                        <span className="px-3 py-1 text-xs font-medium rounded-full bg-gray-200 dark:bg-white/10 text-gray-600 dark:text-gray-400">
+                            +{project.technologies.length - 4}
+                        </span>
+                    )}
+                </div>
+                <div className="flex items-center gap-4 pt-4 border-t border-gray-200 dark:border-white/10">
+                    <a 
+                        href={project.liveLink}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onClick={(e) => e.stopPropagation()}
+                        className="text-sm text-gray-600 dark:text-gray-400 hover:text-primary transition-colors flex items-center gap-1"
                     >
-                        {tech}
-                    </span>
-                ))}
+                        <i className="ph ph-globe"></i> Live Demo
+                    </a>
+                    <a 
+                        href={project.githubLink}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onClick={(e) => e.stopPropagation()}
+                        className="text-sm text-gray-600 dark:text-gray-400 hover:text-primary transition-colors flex items-center gap-1"
+                    >
+                        <i className="ph ph-github-logo"></i> Source
+                    </a>
+                </div>
             </div>
-            <a 
-                className="inline-flex items-center gap-1 mt-4 text-sm font-medium text-primary hover:text-primary/80 transition-colors" 
-                href={link}
-            >
-                {linkType === 'demo' ? (
-                    <>
-                        Live Demo <i className="ph ph-arrow-square-out"></i>
-                    </>
-                ) : (
-                    <>
-                        View Repository <i className="ph ph-github-logo"></i>
-                    </>
-                )}
-            </a>
         </motion.div>
     );
 };

@@ -1,6 +1,101 @@
-import React from 'react';
+import React, { useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 import SkillsCard from './SkillsCard';
+
+// Orbital Icon Component with Magnetic Effect
+const OrbitalIcon = ({ tech, index, x, y }) => {
+    const iconRef = useRef(null);
+    const [magneticPosition, setMagneticPosition] = useState({ x: 0, y: 0 });
+
+    const handleMouseMove = (e) => {
+        if (!iconRef.current) return;
+        
+        const rect = iconRef.current.getBoundingClientRect();
+        const iconCenterX = rect.left + rect.width / 2;
+        const iconCenterY = rect.top + rect.height / 2;
+        
+        const distanceX = e.clientX - iconCenterX;
+        const distanceY = e.clientY - iconCenterY;
+        const distance = Math.sqrt(distanceX * distanceX + distanceY * distanceY);
+        
+        // Only apply magnetic effect within 100px range
+        if (distance < 100) {
+            const strength = 0.3;
+            setMagneticPosition({
+                x: distanceX * strength,
+                y: distanceY * strength
+            });
+        }
+    };
+
+    const handleMouseLeave = () => {
+        setMagneticPosition({ x: 0, y: 0 });
+    };
+
+    return (
+        <motion.div
+            ref={iconRef}
+            className="absolute"
+            style={{
+                left: '50%',
+                top: '50%',
+            }}
+            initial={{
+                x: 0,
+                y: 0,
+                opacity: 0,
+                scale: 0
+            }}
+            animate={{
+                x: x + magneticPosition.x,
+                y: y + magneticPosition.y,
+                opacity: 1,
+                scale: 1
+            }}
+            transition={{
+                x: { type: "spring", stiffness: 150, damping: 15 },
+                y: { type: "spring", stiffness: 150, damping: 15 },
+                opacity: { delay: index * 0.1, duration: 0.8 },
+                scale: { delay: index * 0.1, duration: 0.8, type: "spring", stiffness: 100 }
+            }}
+            whileHover={{
+                scale: 1.3,
+                zIndex: 20,
+                transition: { duration: 0.2 }
+            }}
+            onMouseMove={handleMouseMove}
+            onMouseLeave={handleMouseLeave}
+        >
+            <motion.div
+                className="w-16 h-16 rounded-2xl backdrop-blur-md border shadow-lg flex flex-col items-center justify-center cursor-pointer"
+                style={{
+                    background: `linear-gradient(135deg, ${tech.color}20, ${tech.color}10)`,
+                    borderColor: `${tech.color}40`,
+                    transform: 'translate(-50%, -50%)'
+                }}
+                animate={{
+                    y: [0, -10, 0],
+                }}
+                transition={{
+                    duration: 3 + index * 0.2,
+                    repeat: Infinity,
+                    ease: "easeInOut"
+                }}
+            >
+                <i 
+                    className={`ph ${tech.icon} text-2xl mb-1`}
+                    style={{ color: tech.color }}
+                ></i>
+                <span 
+                    className="text-[8px] font-bold uppercase tracking-wide"
+                    style={{ color: tech.color }}
+                >
+                    {tech.name}
+                </span>
+            </motion.div>
+        </motion.div>
+    );
+};
 
 const SkillsLayout = () => {
     const skillsData = [
@@ -129,65 +224,13 @@ const SkillsLayout = () => {
                             const y = Math.sin(angleInRadians) * radius;
 
                             return (
-                                <motion.div
+                                <OrbitalIcon 
                                     key={index}
-                                    className="absolute"
-                                    style={{
-                                        left: '50%',
-                                        top: '50%',
-                                    }}
-                                    initial={{
-                                        x: 0,
-                                        y: 0,
-                                        opacity: 0,
-                                        scale: 0
-                                    }}
-                                    animate={{
-                                        x: x,
-                                        y: y,
-                                        opacity: 1,
-                                        scale: 1
-                                    }}
-                                    transition={{
-                                        delay: index * 0.1,
-                                        duration: 0.8,
-                                        type: "spring",
-                                        stiffness: 100
-                                    }}
-                                    whileHover={{
-                                        scale: 1.3,
-                                        zIndex: 20,
-                                        transition: { duration: 0.2 }
-                                    }}
-                                >
-                                    <motion.div
-                                        className="w-16 h-16 rounded-2xl backdrop-blur-md border shadow-lg flex flex-col items-center justify-center cursor-pointer"
-                                        style={{
-                                            background: `linear-gradient(135deg, ${tech.color}20, ${tech.color}10)`,
-                                            borderColor: `${tech.color}40`,
-                                            transform: 'translate(-50%, -50%)'
-                                        }}
-                                        animate={{
-                                            y: [0, -10, 0],
-                                        }}
-                                        transition={{
-                                            duration: 3 + index * 0.2,
-                                            repeat: Infinity,
-                                            ease: "easeInOut"
-                                        }}
-                                    >
-                                        <i 
-                                            className={`ph ${tech.icon} text-2xl mb-1`}
-                                            style={{ color: tech.color }}
-                                        ></i>
-                                        <span 
-                                            className="text-[8px] font-bold uppercase tracking-wide"
-                                            style={{ color: tech.color }}
-                                        >
-                                            {tech.name}
-                                        </span>
-                                    </motion.div>
-                                </motion.div>
+                                    tech={tech}
+                                    index={index}
+                                    x={x}
+                                    y={y}
+                                />
                             );
                         })}
 
