@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import BackgroundPic from '../assets/BackgroundPic.png';
 import ProfilePic from '../assets/ProfilePic/ProfilePic.jpeg';
 import { motion, useScroll, useTransform } from 'framer-motion';
@@ -11,52 +11,28 @@ const Hero = () => {
     
     const text = "Ahmed Abrar Zayad — Full-Stack Developer, I specialize in building scalable, high-performance web and mobile applications, crafting end-to-end solutions with modern frameworks, clean architecture, and AI-powered systems that turn complex ideas into reliable, user-friendly products.";
     
-    const container = {
-        hidden: { opacity: 0 },
-        visible: {
-            opacity: 1,
-            transition: {
-                staggerChildren: 0.02,
-            }
-        }
-    };
+    // Optimized typewriter effect - only updates text content, not individual elements
+    const [displayedText, setDisplayedText] = useState('');
+    const [currentIndex, setCurrentIndex] = useState(0);
 
-    const child = {
-        hidden: { opacity: 0 },
-        visible: { opacity: 1 }
-    };
+    useEffect(() => {
+        if (currentIndex < text.length) {
+            const timeout = setTimeout(() => {
+                setDisplayedText(prev => prev + text[currentIndex]);
+                setCurrentIndex(prev => prev + 1);
+            }, 20); // Adjust speed here (lower = faster)
+            
+            return () => clearTimeout(timeout);
+        }
+    }, [currentIndex, text]);
 
     return (
         <>
             <div id="hero" className='min-h-screen relative flex flex-col justify-between px-6 md:px-12 lg:px-24 py-24 overflow-hidden bg-black'>
                 
-                {/* Floating Animated Elements */}
-                <motion.div
-                    className="absolute top-20 right-20 w-64 h-64 bg-primary/10 rounded-full blur-3xl"
-                    animate={{
-                        scale: [1, 1.2, 1],
-                        x: [0, 30, 0],
-                        y: [0, -30, 0],
-                    }}
-                    transition={{
-                        duration: 8,
-                        repeat: Infinity,
-                        ease: "easeInOut"
-                    }}
-                />
-                <motion.div
-                    className="absolute bottom-40 left-20 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl"
-                    animate={{
-                        scale: [1, 1.3, 1],
-                        x: [0, -40, 0],
-                        y: [0, 40, 0],
-                    }}
-                    transition={{
-                        duration: 10,
-                        repeat: Infinity,
-                        ease: "easeInOut"
-                    }}
-                />
+                {/* Floating Animated Elements - Optimized */}
+                <div className="absolute top-20 right-20 w-64 h-64 bg-primary/10 rounded-full blur-2xl opacity-70" style={{ willChange: 'transform' }} />
+                <div className="absolute bottom-40 left-20 w-96 h-96 bg-blue-500/10 rounded-full blur-2xl opacity-60" style={{ willChange: 'transform' }} />
                 
                 {/* Available for work - Top Left */}
                 <div className="flex items-center gap-3">
@@ -106,18 +82,8 @@ const Hero = () => {
                         animate={{ opacity: 1, scale: 1 }}
                         transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
                     >
-                        {/* Animated Border */}
-                        <motion.div
-                            className="absolute -inset-4 bg-gradient-to-r from-primary via-blue-500 to-primary rounded-full opacity-75 blur-lg"
-                            animate={{
-                                rotate: [0, 360],
-                            }}
-                            transition={{
-                                duration: 8,
-                                repeat: Infinity,
-                                ease: "linear"
-                            }}
-                        />
+                        {/* Animated Border - Optimized */}
+                        <div className="absolute -inset-4 bg-gradient-to-r from-primary via-blue-500 to-primary rounded-full opacity-60 blur-md animate-spin-slow" style={{ animationDuration: '8s' }} />
                         
                         {/* Profile Image Container */}
                         <div className="relative w-64 h-64 md:w-80 md:h-80 lg:w-96 lg:h-96">
@@ -130,6 +96,7 @@ const Hero = () => {
                                     src={ProfilePic} 
                                     alt="Ahmed Abrar Zayad"
                                     className="w-full h-full object-cover"
+                                    loading="eager"
                                 />
                             </motion.div>
                             
@@ -154,15 +121,14 @@ const Hero = () => {
                         <i className="ph ph-quotes text-5xl text-gray-700 mb-3 block"></i>
                         <motion.p 
                             className="text-sm md:text-base leading-relaxed text-gray-400 font-light uppercase tracking-wide"
-                            variants={container}
-                            initial="hidden"
-                            animate="visible"
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.8, delay: 0.5 }}
                         >
-                            {text.split('').map((char, index) => (
-                                <motion.span key={index} variants={child}>
-                                    {char}
-                                </motion.span>
-                            ))}
+                            {displayedText}
+                            {currentIndex < text.length && (
+                                <span className="inline-block w-1 h-4 bg-primary ml-1 animate-pulse" />
+                            )}
                         </motion.p>
                     </div>
 
