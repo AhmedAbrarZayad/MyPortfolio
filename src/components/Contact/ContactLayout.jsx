@@ -1,7 +1,66 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { motion } from 'framer-motion';
 
 const ContactLayout = () => {
+    const formRef = useRef();
+    const [formData, setFormData] = useState({
+        name: '',
+        email: '',
+        message: ''
+    });
+    const [status, setStatus] = useState({ type: '', message: '' });
+    const [isLoading, setIsLoading] = useState(false);
+
+    const handleChange = (e) => {
+        setFormData({
+            ...formData,
+            [e.target.name]: e.target.value
+        });
+    };
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        setIsLoading(true);
+        setStatus({ type: '', message: '' });
+
+        try {
+            // Web3Forms API - Get your free access key from https://web3forms.com/
+            const response = await fetch('https://api.web3forms.com/submit', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+                body: JSON.stringify({
+                    access_key: 'd3a4ad28-718b-49a6-8ec2-e7638e48cd29',
+                    name: formData.name,
+                    email: formData.email,
+                    message: formData.message,
+                    subject: `New Portfolio Contact from ${formData.name}`
+                })
+            });
+
+            const result = await response.json();
+
+            if (result.success) {
+                setStatus({
+                    type: 'success',
+                    message: 'Message sent successfully! I\'ll get back to you soon.'
+                });
+                setFormData({ name: '', email: '', message: '' });
+            } else {
+                throw new Error('Failed to send');
+            }
+        } catch (error) {
+            setStatus({
+                type: 'error',
+                message: 'Failed to send message. Please try emailing directly.'
+            });
+        } finally {
+            setIsLoading(false);
+        }
+    };
+
     return (
         <section id="contact" className="relative z-10 w-full py-24 px-6 md:px-12 lg:px-24 bg-background-light dark:bg-background-dark border-t border-gray-200 dark:border-white/5 overflow-hidden">
             {/* Animated Background */}
@@ -145,7 +204,7 @@ const ContactLayout = () => {
                         viewport={{ once: true }}
                         transition={{ duration: 0.6 }}
                     >
-                        <form className="flex flex-col gap-6">
+                        <form ref={formRef} onSubmit={handleSubmit} className="flex flex-col gap-6">
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 <motion.div 
                                     className="flex flex-col gap-2"
@@ -162,9 +221,13 @@ const ContactLayout = () => {
                                     </label>
                                     <motion.input 
                                         className="w-full px-4 py-3 bg-gray-50 dark:bg-black/30 border border-gray-200 dark:border-white/10 rounded-lg focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary text-black dark:text-white placeholder-gray-400 transition-all duration-300" 
-                                        id="name" 
+                                        id="name"
+                                        name="name"
                                         placeholder="John Doe" 
                                         type="text"
+                                        value={formData.name}
+                                        onChange={handleChange}
+                                        required
                                         whileFocus={{ scale: 1.02 }}
                                     />
                                 </motion.div>
@@ -183,9 +246,13 @@ const ContactLayout = () => {
                                     </label>
                                     <motion.input 
                                         className="w-full px-4 py-3 bg-gray-50 dark:bg-black/30 border border-gray-200 dark:border-white/10 rounded-lg focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary text-black dark:text-white placeholder-gray-400 transition-all duration-300" 
-                                        id="email" 
+                                        id="email"
+                                        name="email"
                                         placeholder="john@example.com" 
                                         type="email"
+                                        value={formData.email}
+                                        onChange={handleChange}
+                                        required
                                         whileFocus={{ scale: 1.02 }}
                                     />
                                 </motion.div>
@@ -205,28 +272,58 @@ const ContactLayout = () => {
                                 </label>
                                 <motion.textarea 
                                     className="w-full px-4 py-3 bg-gray-50 dark:bg-black/30 border border-gray-200 dark:border-white/10 rounded-lg focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary text-black dark:text-white placeholder-gray-400 transition-all duration-300 resize-none" 
-                                    id="message" 
+                                    id="message"
+                                    name="message"
                                     placeholder="Tell me about your project..." 
                                     rows="4"
+                                    value={formData.message}
+                                    onChange={handleChange}
+                                    required
                                     whileFocus={{ scale: 1.02 }}
                                 />
                             </motion.div>
+
+                            {/* Status Message */}
+                            {status.message && (
+                                <motion.div
+                                    initial={{ opacity: 0, y: -10 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    className={`p-4 rounded-lg ${
+                                        status.type === 'success'
+                                            ? 'bg-green-500/10 border border-green-500/30 text-green-600 dark:text-green-400'
+                                            : 'bg-red-500/10 border border-red-500/30 text-red-600 dark:text-red-400'
+                                    }`}
+                                >
+                                    <p className="text-sm font-medium">{status.message}</p>
+                                </motion.div>
+                            )}
+
                             <motion.button 
-                                className="mt-2 w-full py-4 px-6 bg-primary hover:bg-primary/90 text-white font-bold uppercase tracking-wider rounded-lg transition-all duration-300 flex items-center justify-center gap-2 group" 
-                                type="button"
+                                className="mt-2 w-full py-4 px-6 bg-primary hover:bg-primary/90 text-white font-bold uppercase tracking-wider rounded-lg transition-all duration-300 flex items-center justify-center gap-2 group disabled:opacity-50 disabled:cursor-not-allowed" 
+                                type="submit"
+                                disabled={isLoading}
                                 initial={{ opacity: 0, y: 20 }}
                                 whileInView={{ opacity: 1, y: 0 }}
                                 viewport={{ once: true }}
                                 transition={{ delay: 0.4 }}
-                                whileHover={{ scale: 1.02, y: -2 }}
-                                whileTap={{ scale: 0.98 }}
+                                whileHover={{ scale: isLoading ? 1 : 1.02, y: isLoading ? 0 : -2 }}
+                                whileTap={{ scale: isLoading ? 1 : 0.98 }}
                             >
-                                Send Message
-                                <motion.i 
-                                    className="ph ph-paper-plane-tilt text-lg"
-                                    initial={{ x: 0 }}
-                                    whileHover={{ x: 5, rotate: -15 }}
-                                />
+                                {isLoading ? (
+                                    <>
+                                        <span className="inline-block w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                                        Sending...
+                                    </>
+                                ) : (
+                                    <>
+                                        Send Message
+                                        <motion.i 
+                                            className="ph ph-paper-plane-tilt text-lg"
+                                            initial={{ x: 0 }}
+                                            whileHover={{ x: 5, rotate: -15 }}
+                                        />
+                                    </>
+                                )}
                             </motion.button>
                         </form>
                     </motion.div>
