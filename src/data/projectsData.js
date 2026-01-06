@@ -26,7 +26,7 @@ export const projectsData = [
         fullDescription: 'A comprehensive restaurant management platform built with the MERN stack, featuring role-based access control for users, chefs, and admins. Includes real-time order tracking, secure payment processing with Stripe, and advanced meal management capabilities.',
         technologies: ['React 18', 'Node.js', 'Express', 'MongoDB', 'Firebase Auth', 'Stripe', 'TailwindCSS', 'TanStack Query', 'Framer Motion'],
         liveLink: 'https://restaurant-c51e9.web.app',
-        githubLink: 'https://github.com/AhmedAbrarZayad/Chef',
+        githubLink: 'https://github.com/AhmedAbrarZayad/Chef-frontend',
         duration: 'Nov 2024 - Dec 2024',
         category: 'Full Stack Web App',
         challenges: [
@@ -54,7 +54,7 @@ export const projectsData = [
         fullDescription: 'A comprehensive courier service web application that streamlines parcel delivery management. Features secure authentication, role-based access control for users, riders, and admins, real-time tracking with interactive maps, and integrated Stripe payment processing.',
         technologies: ['React 19', 'Node.js', 'Express.js', 'MongoDB', 'Firebase Auth', 'Stripe', 'React Leaflet', 'Material-UI', 'TailwindCSS v4', 'Framer Motion'],
         liveLink: 'https://delivery-app-e0827.web.app',
-        githubLink: 'https://github.com/AhmedAbrarZayad/Delivery',
+        githubLink: 'https://github.com/AhmedAbrarZayad/DeliveryApp',
         duration: 'Nov 2025 - Dec 2025',
         category: 'Full Stack Web App',
         challenges: [
@@ -84,7 +84,7 @@ export const projectsData = [
         fullDescription: 'A full-stack real estate management system that connects property buyers, sellers, and administrators. Features advanced search and filtering, user dashboards with analytics, review systems, and a powerful admin panel for platform management.',
         technologies: ['React 18', 'Node.js', 'Express', 'MongoDB', 'Firebase Auth', 'TailwindCSS', 'Recharts', 'Framer Motion', 'Headless UI'],
         liveLink: 'https://neon-cendol-9e4ab4.netlify.app',
-        githubLink: 'https://github.com/AhmedAbrarZayad/RealEstate',
+        githubLink: 'https://github.com/AhmedAbrarZayad/RealEstate-Frontend',
         duration: 'Oct 2024 - Nov 2024',
         category: 'Full Stack Web App',
         challenges: [
