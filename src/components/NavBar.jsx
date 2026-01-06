@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, useScroll, useSpring } from 'framer-motion';
+import resumePDF from '../assets/Resume/Ahmed Abrar - Web Development.pdf';
 
 const NavBar = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -15,6 +16,7 @@ const NavBar = () => {
         { name: 'About', href: '#about' },
         { name: 'Experience', href: '#experience' },
         { name: 'Skills', href: '#skills' },
+        { name: 'Certifications', href: '#certifications' },
         { name: 'Projects', href: '#projects' },
         { name: 'Contact', href: '#contact' }
     ];
@@ -66,7 +68,10 @@ const NavBar = () => {
             <div className="flex items-center gap-4 z-50">
                 <a 
                     className="hidden sm:inline-flex items-center gap-2 px-4 md:px-6 py-2 md:py-3 text-xs md:text-sm font-semibold tracking-wide uppercase border border-gray-300 dark:border-gray-700 rounded-lg hover:bg-primary hover:border-primary hover:text-white transition-all duration-300 glass-panel" 
-                    href="#"
+                    href={resumePDF}
+                    download="Ahmed_Abrar_Zayad_Resume.pdf"
+                    target="_blank"
+                    rel="noopener noreferrer"
                 >
                     <span>Download CV</span>
                     <i className="ph ph-download-simple text-lg"></i>
@@ -105,7 +110,10 @@ const NavBar = () => {
                     ))}
                     <a 
                         className="sm:hidden inline-flex items-center justify-center gap-2 px-6 py-3 text-sm font-semibold tracking-wide uppercase border border-gray-300 dark:border-gray-700 rounded-lg hover:bg-primary hover:border-primary hover:text-white transition-all duration-300 glass-panel mt-2" 
-                        href="#"
+                        href={resumePDF}
+                        download="Ahmed_Abrar_Zayad_Resume.pdf"
+                        target="_blank"
+                        rel="noopener noreferrer"
                     >
                         <span>Download CV</span>
                         <i className="ph ph-download-simple text-lg"></i>

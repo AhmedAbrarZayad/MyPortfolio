@@ -4,6 +4,7 @@ import Hero from '../components/Hero';
 import AboutMe from '../components/About/AboutMe';
 import ExperienceAndEducationLayout from '../components/ExperienceAndEducation/ExperienceAndEducationLayout';
 import SkillsLayout from '../components/Skills/SkillsLayout';
+import CertificationsLayout from '../components/Certifications/CertificationsLayout';
 import ProjectLayout from '../components/Projects/ProjectLayout';
 import ContactLayout from '../components/Contact/ContactLayout';
 import AnimatedBackground from '../components/AnimatedBackground';
@@ -19,6 +20,7 @@ const Home = () => {
             <AboutMe />
             <ExperienceAndEducationLayout />
             <SkillsLayout />
+            <CertificationsLayout />
             <ProjectLayout />
             <ContactLayout />
         </div>
