@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { projectsData } from '../data/projectsData';
@@ -7,6 +7,10 @@ const ProjectDetail = () => {
     const { id } = useParams();
     const navigate = useNavigate();
     const project = projectsData.find(p => p.id === id);
+
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, [id]);
 
     if (!project) {
         return <div>Project not found</div>;
