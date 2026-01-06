@@ -1,5 +1,6 @@
 import React from 'react';
 import BackgroundPic from '../assets/BackgroundPic.png';
+import ProfilePic from '../assets/ProfilePic/ProfilePic.jpeg';
 import { motion, useScroll, useTransform } from 'framer-motion';
 
 const Hero = () => {
@@ -27,12 +28,7 @@ const Hero = () => {
 
     return (
         <>
-            <div id="hero" style={{
-                backgroundImage: `url(${BackgroundPic})`,
-                backgroundSize: 'cover',
-                backgroundPosition: 'center',
-                backgroundRepeat: 'no-repeat'
-            }} className='min-h-screen relative flex flex-col justify-between px-6 md:px-12 lg:px-24 py-24 overflow-hidden'>
+            <div id="hero" className='min-h-screen relative flex flex-col justify-between px-6 md:px-12 lg:px-24 py-24 overflow-hidden bg-black'>
                 
                 {/* Floating Animated Elements */}
                 <motion.div
@@ -74,38 +70,88 @@ const Hero = () => {
                 </div>
 
                 {/* Main Content - Middle */}
-                <motion.div className="flex-1 flex flex-col justify-center" style={{ y: y2, opacity }}>
-                    <motion.h1 
-                        className="font-display font-extrabold text-[20vw] md:text-[120px] lg:text-[140px] leading-[0.85] tracking-tighter text-white uppercase mb-4"
-                        initial={{ opacity: 0, y: 100 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.8, ease: "easeOut" }}
-                    >
-                        Zayad
-                    </motion.h1>
-                    <motion.div 
-                        className="flex items-center gap-4"
-                        initial={{ opacity: 0, x: -50 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
-                    >
+                <motion.div className="flex-1 flex flex-col lg:flex-row justify-center items-center gap-12 lg:gap-20" style={{ y: y2, opacity }}>
+                    {/* Left Side - Text */}
+                    <div className="flex-1">
+                        <motion.h1 
+                            className="font-display font-extrabold text-[20vw] md:text-[120px] lg:text-[140px] leading-[0.85] tracking-tighter text-white uppercase mb-4"
+                            initial={{ opacity: 0, y: 100 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.8, ease: "easeOut" }}
+                        >
+                            Zayad
+                        </motion.h1>
                         <motion.div 
-                            className="h-[2px] bg-white"
-                            initial={{ width: 0 }}
-                            animate={{ width: 64 }}
-                            transition={{ duration: 0.8, delay: 0.5 }}
+                            className="flex items-center gap-4"
+                            initial={{ opacity: 0, x: -50 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
+                        >
+                            <motion.div 
+                                className="h-[2px] bg-white"
+                                initial={{ width: 0 }}
+                                animate={{ width: 64 }}
+                                transition={{ duration: 0.8, delay: 0.5 }}
+                            />
+                            <h2 className="text-xl md:text-2xl font-medium tracking-wide text-gray-300">
+                                Full Stack Developer
+                            </h2>
+                        </motion.div>
+                    </div>
+
+                    {/* Right Side - Profile Picture */}
+                    <motion.div
+                        className="relative"
+                        initial={{ opacity: 0, scale: 0.8 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
+                    >
+                        {/* Animated Border */}
+                        <motion.div
+                            className="absolute -inset-4 bg-gradient-to-r from-primary via-blue-500 to-primary rounded-full opacity-75 blur-lg"
+                            animate={{
+                                rotate: [0, 360],
+                            }}
+                            transition={{
+                                duration: 8,
+                                repeat: Infinity,
+                                ease: "linear"
+                            }}
                         />
-                        <h2 className="text-xl md:text-2xl font-medium tracking-wide text-gray-300">
-                            Full Stack Developer
-                        </h2>
+                        
+                        {/* Profile Image Container */}
+                        <div className="relative w-64 h-64 md:w-80 md:h-80 lg:w-96 lg:h-96">
+                            <motion.div
+                                className="w-full h-full rounded-full overflow-hidden border-4 border-white/10 shadow-2xl"
+                                whileHover={{ scale: 1.05 }}
+                                transition={{ duration: 0.3 }}
+                            >
+                                <img 
+                                    src={ProfilePic} 
+                                    alt="Ahmed Abrar Zayad"
+                                    className="w-full h-full object-cover"
+                                />
+                            </motion.div>
+                            
+                            {/* Floating Badge */}
+                            <motion.div
+                                className="absolute -bottom-4 -right-4 bg-primary px-6 py-3 rounded-full shadow-xl"
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ duration: 0.8, delay: 0.8 }}
+                                whileHover={{ scale: 1.1, rotate: 5 }}
+                            >
+                                <span className="text-white font-bold text-sm">Full Stack Dev</span>
+                            </motion.div>
+                        </div>
                     </motion.div>
                 </motion.div>
 
                 {/* Bottom Section - Description and Rate */}
-                <motion.div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-end" style={{ y: y1 }}>
+                <motion.div className="grid grid-cols-1 gap-12 items-end" style={{ y: y1 }}>
                     {/* Bottom Left - Description */}
                     <div className="max-w-xl">
-                        <i className="ph ph-quotes text-5xl text-gray-700 mb-6 block"></i>
+                        <i className="ph ph-quotes text-5xl text-gray-700 mb-3 block"></i>
                         <motion.p 
                             className="text-sm md:text-base leading-relaxed text-gray-400 font-light uppercase tracking-wide"
                             variants={container}
