@@ -9,7 +9,7 @@ const Hero = () => {
     const y2 = useTransform(scrollY, [0, 500], [0, -100]);
     const opacity = useTransform(scrollY, [0, 300], [1, 0]);
     
-    const text = "Ahmed Abrar Zayad — Full-Stack Developer, I specialize in building scalable, high-performance web and mobile applications, crafting end-to-end solutions with modern frameworks, clean architecture, and AI-powered systems that turn complex ideas into reliable, user-friendly products.";
+    const text = "Ahmed Abrar Zayad — Full-Stack AI Engineer. With 1+ years of experience, I specialize in building scalable, cross-platform mobile and web applications. I craft end-to-end solutions with modern frameworks and clean architecture, recently publishing a mobile app with a 3-person team at Paleon and building production-grade AI websites, turning complex ideas into reliable, user-friendly products.";
     
     // Optimized typewriter effect - only updates text content, not individual elements
     const [displayedText, setDisplayedText] = useState('');
@@ -70,7 +70,7 @@ const Hero = () => {
                                 transition={{ duration: 0.8, delay: 0.5 }}
                             />
                             <h2 className="text-xl md:text-2xl font-medium tracking-wide text-gray-300">
-                                Full Stack Developer
+                                Full Stack AI Engineer
                             </h2>
                         </motion.div>
                     </div>
