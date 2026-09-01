@@ -1,12 +1,12 @@
 # Ahmed Abrar Zayad - Portfolio 🚀
 
-[![Live Demo](https://img.shields.io/badge/Live-Demo-brightgreen)](https://calm-sunshine-e32681.netlify.app/)
+[![Live Demo](https://img.shields.io/badge/Live-Demo-brightgreen)](https://my-portfolio-two-hazel-21.vercel.app/)
 [![Built with React](https://img.shields.io/badge/Built%20with-React-61DAFB?logo=react)](https://react.dev/)
 [![Powered by Vite](https://img.shields.io/badge/Powered%20by-Vite-646CFF?logo=vite)](https://vitejs.dev/)
 
 > A modern, interactive, and performance-optimized portfolio showcasing my skills, projects, certifications, and experience as a Full-Stack Developer.
 
-**Live Site:** [https://calm-sunshine-e32681.netlify.app/](https://calm-sunshine-e32681.netlify.app/)
+**Live Site:** [https://my-portfolio-two-hazel-21.vercel.app/](https://my-portfolio-two-hazel-21.vercel.app/)
 
 ---
 
@@ -158,14 +158,13 @@ To update the email address:
 
 ## 🚀 Deployment
 
-### Netlify (Current)
-1. Connect your repository to Netlify
+### Vercel (Current)
+1. Import your repository into Vercel
 2. Build command: `npm run build`
-3. Publish directory: `dist`
+3. Output directory: `dist`
 4. Deploy!
 
 ### Other Platforms
-- **Vercel**: Import from GitHub with zero configuration
 - **GitHub Pages**: Use `vite-plugin-static-deploy`
 - **Cloudflare Pages**: Connect repository and deploy
 
@@ -192,7 +191,7 @@ This project is open source and available for personal use.
 ## 👤 Author
 
 **Ahmed Abrar Zayad**
-- 🌐 Website: [https://calm-sunshine-e32681.netlify.app/](https://calm-sunshine-e32681.netlify.app/)
+- 🌐 Website: [https://my-portfolio-two-hazel-21.vercel.app/](https://my-portfolio-two-hazel-21.vercel.app/)
 - 📧 Email: ahmedabrarzayad@gmail.com
 - 📱 Phone: +880 1768 531042
 - 💼 LinkedIn: [Your LinkedIn]

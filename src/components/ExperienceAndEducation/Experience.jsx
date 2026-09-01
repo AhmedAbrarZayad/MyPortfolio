@@ -46,7 +46,7 @@ const Experience = () => {
                 >
                     <i className="ph ph-briefcase text-xl"></i>
                 </motion.div>
-                <h4 className="text-2xl font-bold text-black dark:text-white">Experience</h4>
+                <h4 className="text-2xl font-bold text-black dark:text-white">Experience (2)</h4>
             </motion.div>
 
             <div className="relative border-l border-gray-200 dark:border-white/10 ml-3 md:ml-5 space-y-12">
