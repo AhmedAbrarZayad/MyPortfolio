@@ -61,7 +61,7 @@ const ScrollIndicator = () => {
                 <span className="text-xs text-gray-400 uppercase tracking-wider">Scroll</span>
                 <motion.div
                     className="w-6 h-10 border-2 border-gray-400 rounded-full flex justify-center p-1"
-                    whileHover={{ borderColor: '#8B5CF6' }}
+                    whileHover={{ borderColor: '#10b981' }}
                 >
                     <motion.div
                         className="w-1 h-2 bg-primary rounded-full"

@@ -38,6 +38,16 @@ const ProjectDetail = () => {
                     transition={{ duration: 0.6 }}
                     className="mb-12"
                 >
+                    <div className="flex flex-wrap items-center gap-3 mb-5">
+                        {project.featured && (
+                            <span className="rounded-full border border-emerald-500/30 bg-emerald-500/10 px-3 py-1 font-mono text-xs uppercase tracking-wider text-emerald-400">
+                                Flagship Project
+                            </span>
+                        )}
+                        <span className="text-sm text-gray-500">{project.category}</span>
+                        <span className="h-1 w-1 rounded-full bg-gray-700" />
+                        <span className="text-sm text-gray-500">{project.duration}</span>
+                    </div>
                     <h1 className="text-4xl md:text-6xl font-display font-bold text-black dark:text-white mb-4">
                         {project.title}
                     </h1>
@@ -45,6 +55,23 @@ const ProjectDetail = () => {
                         {project.fullDescription}
                     </p>
                 </motion.div>
+
+                {project.keyFeatures && (
+                    <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.6, delay: 0.1 }}
+                        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-12"
+                    >
+                        {project.keyFeatures.map((feature) => (
+                            <div key={feature.title} className="rounded-xl border border-white/10 bg-white/[0.025] p-5">
+                                <i className={`ph ${feature.icon} text-2xl text-emerald-400`} aria-hidden="true" />
+                                <h2 className="mt-4 mb-2 font-bold text-white">{feature.title}</h2>
+                                <p className="text-sm leading-relaxed text-gray-400">{feature.description}</p>
+                            </div>
+                        ))}
+                    </motion.div>
+                )}
 
                 {/* Project Images Gallery */}
                 <motion.div
@@ -60,7 +87,7 @@ const ProjectDetail = () => {
                             animate={{ opacity: 1, scale: 1 }}
                             transition={{ delay: index * 0.1 }}
                             whileHover={{ scale: 1.02 }}
-                            className="overflow-hidden rounded-xl"
+                            className={`overflow-hidden rounded-xl border border-white/10 bg-white/[0.02] ${index === 0 && project.featured ? 'md:col-span-2' : ''}`}
                         >
                             <img 
                                 src={img} 
@@ -101,6 +128,27 @@ const ProjectDetail = () => {
                             </div>
                         </motion.div>
 
+                        {project.architecture && (
+                            <motion.div
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ duration: 0.6, delay: 0.35 }}
+                            >
+                                <h2 className="text-2xl font-bold text-black dark:text-white mb-4 flex items-center gap-3">
+                                    <i className="ph ph-tree-structure text-primary text-3xl"></i>
+                                    System Architecture
+                                </h2>
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                                    {project.architecture.map((item) => (
+                                        <div key={item.label} className="glass-panel p-4 rounded-lg">
+                                            <p className="font-mono text-[10px] uppercase tracking-wider text-emerald-400 mb-1">{item.label}</p>
+                                            <p className="text-sm text-gray-300">{item.value}</p>
+                                        </div>
+                                    ))}
+                                </div>
+                            </motion.div>
+                        )}
+
                         {/* Challenges */}
                         <motion.div
                             initial={{ opacity: 0, y: 20 }}
@@ -127,7 +175,7 @@ const ProjectDetail = () => {
                             </div>
                         </motion.div>
 
-                        {/* Future Improvements */}
+                        {(project.engineeringHighlights || project.futureImprovements) && (
                         <motion.div
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
@@ -135,10 +183,10 @@ const ProjectDetail = () => {
                         >
                             <h2 className="text-2xl font-bold text-black dark:text-white mb-4 flex items-center gap-3">
                                 <i className="ph ph-rocket-launch text-primary text-3xl"></i>
-                                Future Improvements
+                                {project.engineeringHighlights ? 'Engineering Highlights' : 'Future Improvements'}
                             </h2>
                             <div className="space-y-3">
-                                {project.futureImprovements.map((improvement, index) => (
+                                {(project.engineeringHighlights || project.futureImprovements).map((improvement, index) => (
                                     <motion.div
                                         key={index}
                                         initial={{ opacity: 0, x: -20 }}
@@ -152,6 +200,7 @@ const ProjectDetail = () => {
                                 ))}
                             </div>
                         </motion.div>
+                        )}
                     </div>
 
                     {/* Sidebar */}
@@ -210,6 +259,15 @@ const ProjectDetail = () => {
                                         <p className="font-medium text-gray-800 dark:text-gray-200">{project.duration}</p>
                                     </div>
                                 </div>
+                                {project.role && (
+                                    <div className="flex items-start gap-3">
+                                        <i className="ph ph-user-focus text-primary text-lg mt-0.5"></i>
+                                        <div>
+                                            <p className="text-gray-500 dark:text-gray-400">Role</p>
+                                            <p className="font-medium text-gray-800 dark:text-gray-200">{project.role}</p>
+                                        </div>
+                                    </div>
+                                )}
                                 <div className="flex items-start gap-3">
                                     <i className="ph ph-tag text-primary text-lg mt-0.5"></i>
                                     <div>

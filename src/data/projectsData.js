@@ -15,8 +15,67 @@ import RealEstate3 from '../assets/RealEstateProject/1 (3).png';
 import RealEstate4 from '../assets/RealEstateProject/1 (4).png';
 import RealEstate5 from '../assets/RealEstateProject/1 (5).png';
 import RealEstate6 from '../assets/RealEstateProject/1 (6).png';
+import InfraAI from '../assets/AI Infra Monitor/AI.png';
+import InfraAnalytics from '../assets/AI Infra Monitor/Analytics.png';
+import InfraIncidents from '../assets/AI Infra Monitor/Incidents.png';
+import InfraServers from '../assets/AI Infra Monitor/Servers.png';
 
 export const projectsData = [
+    {
+        id: 'infra-monitor',
+        title: 'AI Infra Monitor',
+        image: InfraIncidents,
+        images: [InfraIncidents, InfraServers, InfraAI, InfraAnalytics],
+        featured: true,
+        description: 'AI-native infrastructure monitoring for server health, service-level anomalies, incident response, and telemetry-grounded guidance.',
+        fullDescription: 'A full-stack infrastructure operations platform that turns server and container telemetry into actionable incidents. It monitors infrastructure health, detects service-specific anomalies, alerts the right engineers, and uses Gemini to provide incident-aware diagnostic guidance.',
+        technologies: ['Flutter', 'Django', 'FastAPI', 'Isolation Forest', 'Gemini', 'Prometheus', 'Node Exporter', 'cAdvisor', 'Python'],
+        githubLink: 'https://github.com/AhmedAbrarZayad/Infra-Monitor',
+        duration: 'Jul 2026 - Sep 2026',
+        category: 'Full Stack AI App',
+        role: 'Full-Stack & ML Engineer',
+        keyFeatures: [
+            {
+                icon: 'ph-pulse',
+                title: 'Unified observability',
+                description: 'Tracks server health and deployed services through Prometheus, Node Exporter, and cAdvisor telemetry.'
+            },
+            {
+                icon: 'ph-warning-octagon',
+                title: 'Intelligent incidents',
+                description: 'Detects anomalies and crashes, creates incidents, and routes notifications to assigned responders.'
+            },
+            {
+                icon: 'ph-sparkle',
+                title: 'AI-assisted response',
+                description: 'Connects incident context to Gemini so engineers can investigate likely causes and next checks.'
+            },
+            {
+                icon: 'ph-users-three',
+                title: 'Organization-ready access',
+                description: 'Supports organization membership with Owner, Admin, and Engineer roles.'
+            }
+        ],
+        architecture: [
+            { label: 'Client', value: 'Flutter operations dashboard' },
+            { label: 'Core API', value: 'Django, organizations, RBAC & incidents' },
+            { label: 'ML Service', value: 'FastAPI & service-specific Isolation Forest models' },
+            { label: 'Telemetry', value: 'Prometheus, Node Exporter & cAdvisor' },
+            { label: 'Intelligence', value: 'Gemini with incident context' }
+        ],
+        challenges: [
+            'Building a reliable telemetry pipeline for both host-level and deployed-service metrics',
+            'Connecting the FastAPI ML service to train and evaluate models on service-specific telemetry instead of static predefined data',
+            'Selecting and filtering high-signal metrics for accurate anomaly detection',
+            'Reducing ML service latency to return anomaly results fast enough for an operational workflow'
+        ],
+        engineeringHighlights: [
+            'Separated the Django application API from the FastAPI inference service to keep product workflows and ML workloads independently maintainable',
+            'Designed anomaly detection around each monitored service so models learn its own operating behavior',
+            'Connected incidents, telemetry, ownership, notifications, and AI guidance into one response workflow',
+            'Implemented multi-tenant organization access with clear Owner, Admin, and Engineer responsibilities'
+        ]
+    },
     {
         id: 'chefmarket',
         title: 'ChefMarket',

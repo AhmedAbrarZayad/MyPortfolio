@@ -1,5 +1,7 @@
 import './App.css'
 import ExperienceAndEducationLayout from './components/ExperienceAndEducation/ExperienceAndEducationLayout'
+import PublicationsLayout from './components/Publications/PublicationsLayout'
+import AchievementsLayout from './components/Achievements/AchievementsLayout'
 import Hero from './components/Hero'
 import NavBar from './components/NavBar'
 import SocialSidebar from './components/SocialSidebar'
@@ -17,8 +19,10 @@ function App() {
       <SocialSidebar />
       <Hero />
       <ExperienceAndEducationLayout />
-      <SkillsLayout />
+      <PublicationsLayout />
       <ProjectLayout />
+      <AchievementsLayout />
+      <SkillsLayout />
       <ContactLayout />
     </>
   )

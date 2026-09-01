@@ -48,7 +48,7 @@ const ProjectCard = ({ project, index }) => {
     return (
         <motion.div 
             ref={ref}
-            className="bg-gray-50 dark:bg-white/5 rounded-2xl overflow-hidden border border-gray-200 dark:border-white/10 group hover:border-primary transition-all duration-300 cursor-pointer"
+            className="h-full bg-gray-50 dark:bg-white/5 rounded-2xl overflow-hidden border border-gray-200 dark:border-white/10 group hover:border-primary transition-all duration-300 cursor-pointer"
             style={{
                 perspective: 1000,
             }}
@@ -72,7 +72,7 @@ const ProjectCard = ({ project, index }) => {
                 opacity: { duration: 0.5, delay: index * 0.1 },
             }}
         >
-            <div className="relative h-60 overflow-hidden">
+            <div className={`relative overflow-hidden ${project.featured ? 'h-64 md:h-80' : 'h-60'}`}>
                 <motion.img 
                     alt={project.title} 
                     className="w-full h-full object-cover" 
@@ -86,7 +86,12 @@ const ProjectCard = ({ project, index }) => {
                     whileHover={{ opacity: 1 }}
                     transition={{ duration: 0.3 }}
                 />
-                <div className="absolute top-4 right-4">
+                <div className="absolute top-4 right-4 flex items-center gap-2">
+                    {project.featured && (
+                        <span className="px-3 py-1 text-xs font-medium rounded-full border border-emerald-400/30 bg-black/60 text-emerald-400 backdrop-blur-md">
+                            Flagship Project
+                        </span>
+                    )}
                     <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary text-white">
                         {project.category}
                     </span>
@@ -130,15 +135,17 @@ const ProjectCard = ({ project, index }) => {
                     )}
                 </div>
                 <div className="flex items-center gap-4 pt-4 border-t border-gray-200 dark:border-white/10">
-                    <a 
-                        href={project.liveLink}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        onClick={(e) => e.stopPropagation()}
-                        className="text-sm text-gray-600 dark:text-gray-400 hover:text-primary transition-colors flex items-center gap-1"
-                    >
-                        <i className="ph ph-globe"></i> Live Demo
-                    </a>
+                    {project.liveLink && (
+                        <a
+                            href={project.liveLink}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            onClick={(e) => e.stopPropagation()}
+                            className="text-sm text-gray-600 dark:text-gray-400 hover:text-primary transition-colors flex items-center gap-1"
+                        >
+                            <i className="ph ph-globe"></i> Live Demo
+                        </a>
+                    )}
                     <a 
                         href={project.githubLink}
                         target="_blank"

@@ -5,7 +5,7 @@ import CustomCursor from '../components/CustomCursor';
 
 const Root = () => {
     return (
-        <div>
+        <div className="dark min-h-screen bg-[#050505] text-white [--color-primary:#10b981]">
             <CustomCursor />
             <NavBar />
             <Outlet />

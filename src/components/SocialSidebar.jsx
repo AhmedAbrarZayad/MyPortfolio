@@ -5,7 +5,8 @@ const SocialSidebar = () => {
     const socialLinks = [
         { icon: 'ph-instagram-logo', href: 'https://www.instagram.com/ahmedabrarzayad/', label: 'Instagram' },
         { icon: 'ph-github-logo', href: 'https://github.com/AhmedAbrarZayad', label: 'GitHub' },
-        { icon: 'ph-linkedin-logo', href: 'https://www.linkedin.com/in/ahmedabrarzayad/', label: 'LinkedIn' }
+        { icon: 'ph-linkedin-logo', href: 'https://www.linkedin.com/in/ahmedabrarzayad/', label: 'LinkedIn' },
+        { brand: 'codeforces', href: 'https://codeforces.com/profile/dedseczayad', label: 'Codeforces' }
     ];
 
     return (
@@ -52,6 +53,8 @@ const MagneticIcon = ({ social }) => {
             aria-label={social.label}
             className="w-10 h-10 flex items-center justify-center rounded-full hover:bg-white/10 text-gray-400 hover:text-white transition-all duration-300"
             href={social.href}
+            target="_blank"
+            rel="noopener noreferrer"
             onMouseMove={handleMouseMove}
             onMouseLeave={handleMouseLeave}
             animate={{
@@ -66,9 +69,26 @@ const MagneticIcon = ({ social }) => {
             }}
             whileHover={{ scale: 1.2 }}
         >
-            <i className={`ph ${social.icon} text-xl`}></i>
+            {social.brand === 'codeforces' ? (
+                <CodeforcesIcon />
+            ) : (
+                <i className={`ph ${social.icon} text-xl`}></i>
+            )}
         </motion.a>
     );
 };
+
+const CodeforcesIcon = () => (
+    <svg
+        viewBox="0 0 24 24"
+        className="h-5 w-5"
+        role="img"
+        aria-hidden="true"
+    >
+        <rect x="3" y="9" width="5" height="11" rx="1" fill="#1f8acb" />
+        <rect x="9.5" y="4" width="5" height="16" rx="1" fill="#f7c843" />
+        <rect x="16" y="7" width="5" height="13" rx="1" fill="#d9534f" />
+    </svg>
+);
 
 export default SocialSidebar;

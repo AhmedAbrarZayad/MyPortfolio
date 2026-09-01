@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { motion, useScroll, useSpring } from 'framer-motion';
+import React, { useState } from 'react';
+import { motion as Motion, useScroll, useSpring } from 'framer-motion';
 import resumePDF from '../assets/Resume/Ahmed Abrar - Web Development.pdf';
 
 const NavBar = () => {
@@ -15,9 +15,11 @@ const NavBar = () => {
         { name: 'Home', href: '#hero' },
         { name: 'About', href: '#about' },
         { name: 'Experience', href: '#experience' },
+        { name: 'Publications', href: '#publications' },
+        { name: 'Projects', href: '#projects' },
+        { name: 'Achievements', href: '#achievements' },
         { name: 'Skills', href: '#skills' },
         { name: 'Certifications', href: '#certifications' },
-        { name: 'Projects', href: '#projects' },
         { name: 'Contact', href: '#contact' }
     ];
 
@@ -39,7 +41,7 @@ const NavBar = () => {
 
     return (
         <nav className="fixed top-0 w-full z-50 px-6 py-6 md:px-12 flex justify-between items-center bg-black/90 backdrop-blur-md">
-            <motion.div
+            <Motion.div
                 className="absolute bottom-0 left-0 right-0 h-1 bg-primary origin-left"
                 style={{ scaleX }}
             />

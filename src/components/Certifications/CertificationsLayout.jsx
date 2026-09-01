@@ -36,7 +36,7 @@ const CertificationsLayout = () => {
     return (
         <section
             id="certifications"
-            className="min-h-screen py-20 px-6 relative overflow-hidden"
+            className="min-h-screen py-20 px-6 relative overflow-hidden bg-[#050505] border-t border-white/5"
         >
             {/* Optimized Background Elements - Static */}
             <div className="absolute top-1/4 right-0 w-96 h-96 bg-primary/5 rounded-full blur-2xl opacity-60" />

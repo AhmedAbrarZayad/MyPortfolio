@@ -89,7 +89,7 @@ const SplashScreen = ({ onComplete }) => {
                 }}
             />
             <motion.div
-                className="absolute bottom-20 left-20 w-80 h-80 bg-blue-500/20 rounded-full blur-3xl"
+                className="absolute bottom-20 left-20 w-80 h-80 bg-emerald-500/20 rounded-full blur-3xl"
                 animate={{
                     scale: [1, 1.3, 1],
                     x: [0, -30, 0],

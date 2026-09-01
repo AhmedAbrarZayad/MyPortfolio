@@ -4,6 +4,19 @@ import { motion } from 'framer-motion';
 const Experience = () => {
     const experiences = [
         {
+            period: 'Feb 2026 - Present',
+            title: 'Full-Stack AI Engineer',
+            company: 'AI Solutions BD • Remote, Bangladesh',
+            description: 'Promoted from intern to core engineer, delivering scalable, AI-integrated web solutions for internal products and diverse client needs.',
+            techStack: ['FastAPI', 'Django', 'Next.js', 'React', 'TypeScript', 'Redis', 'Docker', 'Nginx'],
+            highlights: [
+                { label: 'Dynamic Architecture', text: 'Designed a metadata-driven form builder for a restaurant inventory system, allowing frontend UI to render dynamically from versioned backend states.' },
+                { label: 'AI & OCR Automation', text: 'Built OCR pipelines for PDF/image extraction and currently developing a RAG-based system to automate complex sam.gov proposal reports.' },
+                { label: 'System Integration', text: 'Engineered secure webhook endpoints for third-party payment routing and refactored auth flows to eliminate redundant API calls, drastically accelerating sign-in.' }
+            ],
+            isActive: true
+        },
+        {
             period: 'Aug 2025 - Present',
             title: 'Founding Tech Lead',
             company: 'Paleon • Remote, Netherlands',
@@ -16,19 +29,6 @@ const Experience = () => {
             ],
             isActive: true
         },
-        {
-            period: 'Feb 2026 - Present',
-            title: 'Full-Stack AI Engineer',
-            company: 'AI Solutions BD • Remote, Bangladesh',
-            description: 'Promoted from intern to core engineer, delivering scalable, AI-integrated web solutions for internal products and diverse client needs.',
-            techStack: ['FastAPI', 'Django', 'Next.js', 'React', 'TypeScript', 'Redis', 'Docker', 'Nginx'],
-            highlights: [
-                { label: 'Dynamic Architecture', text: 'Designed a metadata-driven form builder for a restaurant inventory system, allowing frontend UI to render dynamically from versioned backend states.' },
-                { label: 'AI & OCR Automation', text: 'Built OCR pipelines for PDF/image extraction and currently developing a RAG-based system to automate complex sam.gov proposal reports.' },
-                { label: 'System Integration', text: 'Engineered secure webhook endpoints for third-party payment routing and refactored auth flows to eliminate redundant API calls, drastically accelerating sign-in.' }
-            ],
-            isActive: true
-        }
     ];
 
     return (

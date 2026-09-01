@@ -15,14 +15,14 @@ const AppWrapper = () => {
   };
 
   return (
-    <>
+    <div className="dark min-h-screen bg-[#050505] text-white [--color-primary:#10b981]">
       <AnimatePresence mode="wait">
         {showSplash && (
           <SplashScreen key="splash" onComplete={handleSplashComplete} />
         )}
       </AnimatePresence>
       {!showSplash && <RouterProvider router={router} />}
-    </>
+    </div>
   );
 };
 

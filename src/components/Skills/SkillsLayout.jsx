@@ -1,128 +1,74 @@
-import React, { useRef, useState } from 'react';
+import React from 'react';
 import { motion } from 'framer-motion';
-import SkillsCard from './SkillsCard';
-
-// Optimized Orbital Icon Component - Removed expensive magnetic effect
-const OrbitalIcon = ({ tech, index, x, y }) => {
-    return (
-        <motion.div
-            className="absolute"
-            style={{
-                left: '50%',
-                top: '50%',
-            }}
-            initial={{
-                x: 0,
-                y: 0,
-                opacity: 0,
-                scale: 0
-            }}
-            animate={{
-                x: x,
-                y: y,
-                opacity: 1,
-                scale: 1
-            }}
-            transition={{
-                opacity: { delay: index * 0.1, duration: 0.8 },
-                scale: { delay: index * 0.1, duration: 0.8 }
-            }}
-            whileHover={{
-                scale: 1.2,
-                transition: { duration: 0.2 }
-            }}
-        >
-            <div
-                className="w-16 h-16 rounded-2xl border shadow-lg flex flex-col items-center justify-center cursor-pointer"
-                style={{
-                    background: `linear-gradient(135deg, ${tech.color}20, ${tech.color}10)`,
-                    borderColor: `${tech.color}40`,
-                    transform: 'translate(-50%, -50%)'
-                }}
-            >
-                <i 
-                    className={`ph ${tech.icon} text-2xl mb-1`}
-                    style={{ color: tech.color }}
-                ></i>
-                <span 
-                    className="text-[8px] font-bold uppercase tracking-wide"
-                    style={{ color: tech.color }}
-                >
-                    {tech.name}
-                </span>
-            </div>
-        </motion.div>
-    );
-};
 
 const SkillsLayout = () => {
-    const skillsData = [
+    // Clean, categorized skill tags. No fake percentages.
+    const skillCategories = [
         {
-            title: 'Programming Languages',
+            title: 'Languages',
             icon: 'ph-code',
-            skills: [
-                { name: 'JavaScript', level: 95 },
-                { name: 'Python', level: 95 },
-                { name: 'C#', level: 80 },
-                { name: 'Dart', level: 95 },
-                { name: 'C++', level: 85 },
-                { name: 'Java', level: 90 }
-            ]
+            items: ['JavaScript', 'TypeScript', 'Python', 'Dart', 'Java', 'C++', 'C#']
         },
         {
-            title: 'Frameworks & Libraries',
-            icon: 'ph-brackets-curly',
-            skills: [
-                { name: 'React', level: 95 },
-                { name: 'Next.js', level: 95 },
-                { name: 'Node.js', level: 90 },
-                { name: 'Flutter', level: 90 },
-                { name: 'FastAPI', level: 80 },
-                { name: 'Tailwind CSS', level: 98 }
-            ]
+            title: 'Frontend & Mobile',
+            icon: 'ph-device-mobile',
+            items: ['React', 'Next.js', 'Flutter', 'Tailwind CSS', 'HTML/CSS']
+        },
+        {
+            title: 'Backend & AI',
+            icon: 'ph-server',
+            items: ['Node.js', 'Express.js', 'FastAPI', 'Django', 'RAG']
         },
         {
             title: 'Databases',
             icon: 'ph-database',
-            skills: [
-                { name: 'PostgreSQL', level: 85 },
-                { name: 'MySQL', level: 85 },
-                { name: 'MongoDB', level: 80 },
-                { name: 'Redis', level: 70 }
-            ]
+            items: ['PostgreSQL', 'MySQL', 'MongoDB', 'Redis', 'Supabase']
         },
         {
-            title: 'Cloud, DevOps & Platforms',
+            title: 'DevOps & Tools',
             icon: 'ph-cloud',
-            skills: [
-                { name: 'Docker', level: 85 },
-                { name: 'Vercel', level: 90 },
-                { name: 'Firebase', level: 80 }
-            ]
+            items: ['Docker', 'Railway', 'Vercel', 'Nginx', 'PM2', 'Git', 'GitHub']
         }
     ];
 
-    // Tech icons for orbital display
+    // Tech icons for the orbital display (Updated to match your actual stack)
     const techIcons = [
         { name: 'JS', icon: 'ph-file-js', color: '#F7DF1E' },
+        { name: 'TS', icon: 'ph-file-ts', color: '#3178C6' },
         { name: 'React', icon: 'ph-atom', color: '#61DAFB' },
         { name: 'Node', icon: 'ph-leaf', color: '#339933' },
-        { name: 'Next.js', icon: 'ph-triangle', color: '#000000' },
         { name: 'Python', icon: 'ph-file-py', color: '#3776AB' },
-        { name: 'MongoDB', icon: 'ph-plant', color: '#47A248' },
-        { name: 'PostgreSQL', icon: 'ph-database', color: '#336791' },
         { name: 'Docker', icon: 'ph-package', color: '#2496ED' },
-        { name: 'Firebase', icon: 'ph-flame', color: '#FFCA28' },
-        { name: 'MySQL', icon: 'ph-cylinder', color: '#4479A1' },
+        { name: 'PostgreSQL', icon: 'ph-database', color: '#336791' },
+        { name: 'Next.js', icon: 'ph-triangle', color: '#ffffff' },
+        { name: 'Flutter', icon: 'ph-app-window', color: '#02569B' },
+        { name: 'FastAPI', icon: 'ph-lightning', color: '#009688' },
         { name: 'Tailwind', icon: 'ph-palette', color: '#06B6D4' },
-        { name: 'Flutter', icon: 'ph-app-window', color: '#02569B' }
+        { name: 'Redis', icon: 'ph-circles-three-plus', color: '#DC382D' }
     ];
 
+    const containerVariants = {
+        hidden: { opacity: 0 },
+        visible: {
+            opacity: 1,
+            transition: { staggerChildren: 0.1 }
+        }
+    };
+
+    const itemVariants = {
+        hidden: { opacity: 0, y: 20 },
+        visible: { 
+            opacity: 1, 
+            y: 0, 
+            transition: { duration: 0.5, ease: "easeOut" } 
+        }
+    };
+
     return (
-        <section id="skills" className="relative z-10 w-full py-24 px-6 md:px-12 lg:px-24 bg-background-light dark:bg-background-dark border-t border-gray-200 dark:border-white/5 overflow-hidden">
+        <section id="skills" className="relative z-10 w-full py-24 px-6 md:px-12 lg:px-24 bg-white dark:bg-[#050505] border-t border-gray-200 dark:border-white/5 overflow-hidden">
             {/* Floating Background Element */}
             <motion.div
-                className="absolute bottom-0 left-1/4 w-96 h-96 bg-primary/5 rounded-full blur-3xl"
+                className="absolute bottom-0 left-1/4 w-96 h-96 bg-emerald-500/5 rounded-full blur-3xl"
                 animate={{
                     scale: [1, 1.3, 1],
                     x: [0, -50, 0],
@@ -134,16 +80,17 @@ const SkillsLayout = () => {
                     ease: "easeInOut"
                 }}
             />
+            
             <div className="max-w-7xl mx-auto relative z-10">
                 <motion.div 
-                    className="mb-16"
-                    initial={{ opacity: 0, y: -20 }}
+                    className="mb-16 text-center md:text-left"
+                    initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.6 }}
                 >
                     <motion.h3 
-                        className="text-primary font-bold uppercase tracking-widest text-sm mb-2"
+                        className="text-emerald-500 font-bold uppercase tracking-widest text-sm mb-2"
                         initial={{ opacity: 0, x: -20 }}
                         whileInView={{ opacity: 1, x: 0 }}
                         viewport={{ once: true }}
@@ -158,81 +105,111 @@ const SkillsLayout = () => {
                         viewport={{ once: true }}
                         transition={{ duration: 0.5, delay: 0.2 }}
                     >
-                        Technical Skills
+                        Technical Arsenal
                     </motion.h2>
                 </motion.div>
 
                 {/* Two Column Layout */}
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-                    {/* Left Side - Skills Cards */}
+                <div className="grid grid-cols-1 lg:grid-cols-5 gap-12 lg:gap-16 items-start">
+                    
+                    {/* Left Side - Categorized Skill Tags (Takes up 3 columns) */}
                     <motion.div 
-                        className="grid grid-cols-1 md:grid-cols-2 gap-8"
-                        initial={{ opacity: 0, x: -50 }}
-                        whileInView={{ opacity: 1, x: 0 }}
+                        className="lg:col-span-3 grid grid-cols-1 md:grid-cols-2 gap-6"
+                        variants={containerVariants}
+                        initial="hidden"
+                        whileInView="visible"
                         viewport={{ once: true }}
-                        transition={{ duration: 0.8 }}
                     >
-                        {skillsData.map((category, index) => (
+                        {skillCategories.map((category, index) => (
                             <motion.div
                                 key={index}
-                                initial={{ opacity: 0, y: 20 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true }}
-                                transition={{ delay: index * 0.1, duration: 0.5 }}
+                                variants={itemVariants}
+                                className="p-6 rounded-2xl bg-white/50 dark:bg-white/[0.02] border border-gray-200 dark:border-white/10 hover:border-emerald-500/30 transition-colors duration-300"
                             >
-                                <SkillsCard 
-                                    title={category.title}
-                                    icon={category.icon}
-                                    skills={category.skills}
-                                />
+                                <div className="flex items-center gap-3 mb-4">
+                                    <div className="w-10 h-10 rounded-lg bg-emerald-500/10 flex items-center justify-center">
+                                        <i className={`ph ${category.icon} text-xl text-emerald-500`}></i>
+                                    </div>
+                                    <h3 className="text-lg font-bold text-black dark:text-white">{category.title}</h3>
+                                </div>
+                                <div className="flex flex-wrap gap-2">
+                                    {category.items.map((skill, skillIndex) => (
+                                        <motion.span
+                                            key={skillIndex}
+                                            initial={{ opacity: 0, scale: 0.8 }}
+                                            whileInView={{ opacity: 1, scale: 1 }}
+                                            viewport={{ once: true }}
+                                            transition={{ delay: skillIndex * 0.05 }}
+                                            className="px-3 py-1.5 text-xs font-medium rounded-md bg-gray-100 dark:bg-white/5 text-gray-700 dark:text-gray-300 border border-gray-200 dark:border-white/10 hover:bg-emerald-500/10 hover:text-emerald-500 hover:border-emerald-500/30 transition-all duration-300 cursor-default"
+                                        >
+                                            {skill}
+                                        </motion.span>
+                                    ))}
+                                </div>
                             </motion.div>
                         ))}
                     </motion.div>
 
-                    {/* Right Side - Circular Tech Icons */}
+                    {/* Right Side - Circular Tech Icons (Takes up 2 columns) */}
                     <motion.div 
-                        className="relative h-[500px] flex items-center justify-center"
+                        className="lg:col-span-2 relative h-[400px] md:h-[500px] flex items-center justify-center"
                         initial={{ opacity: 0, scale: 0.8 }}
                         whileInView={{ opacity: 1, scale: 1 }}
                         viewport={{ once: true }}
-                        transition={{ duration: 0.8, delay: 0.2 }}
+                        transition={{ duration: 0.8, delay: 0.4 }}
                     >
                         {/* Center Circle */}
-                        <div className="absolute w-24 h-24 rounded-full bg-gradient-to-br from-primary to-primary/50 flex items-center justify-center shadow-2xl z-10">
-                            <i className="ph ph-code text-4xl text-white"></i>
+                        <div className="absolute w-20 h-20 md:w-24 md:h-24 rounded-full bg-gradient-to-br from-emerald-500 to-emerald-700 flex items-center justify-center shadow-2xl z-10 border-4 border-[#050505]">
+                            <i className="ph ph-code text-3xl md:text-4xl text-white"></i>
                         </div>
 
                         {/* Orbital Icons */}
                         {techIcons.map((tech, index) => {
                             const totalIcons = techIcons.length;
                             const angle = (index * 360) / totalIcons;
-                            const radius = 200;
-                            const angleInRadians = ((angle - 90) * Math.PI) / 180; // Start from top
+                            const radius = 160; // Adjusted for better fit
+                            const angleInRadians = ((angle - 90) * Math.PI) / 180;
                             const x = Math.cos(angleInRadians) * radius;
                             const y = Math.sin(angleInRadians) * radius;
 
                             return (
-                                <OrbitalIcon 
+                                <motion.div
                                     key={index}
-                                    tech={tech}
-                                    index={index}
-                                    x={x}
-                                    y={y}
-                                />
+                                    className="absolute"
+                                    style={{ left: '50%', top: '50%' }}
+                                    initial={{ x: 0, y: 0, opacity: 0, scale: 0 }}
+                                    whileInView={{ x, y, opacity: 1, scale: 1 }}
+                                    viewport={{ once: true }}
+                                    transition={{
+                                        type: "spring",
+                                        stiffness: 100,
+                                        damping: 15,
+                                        delay: index * 0.05
+                                    }}
+                                    whileHover={{ scale: 1.2, zIndex: 20 }}
+                                >
+                                    <div
+                                        className="w-14 h-14 md:w-16 md:h-16 rounded-2xl border shadow-lg flex flex-col items-center justify-center cursor-pointer backdrop-blur-sm"
+                                        style={{
+                                            background: `linear-gradient(135deg, ${tech.color}20, ${tech.color}10)`,
+                                            borderColor: `${tech.color}40`,
+                                            transform: 'translate(-50%, -50%)'
+                                        }}
+                                    >
+                                        <i className={`ph ${tech.icon} text-xl md:text-2xl mb-1`} style={{ color: tech.color }}></i>
+                                        <span className="text-[9px] font-bold uppercase tracking-wide" style={{ color: tech.color }}>
+                                            {tech.name}
+                                        </span>
+                                    </div>
+                                </motion.div>
                             );
                         })}
 
                         {/* Orbital Ring */}
                         <motion.div
-                            className="absolute w-[400px] h-[400px] rounded-full border-2 border-dashed border-primary/20"
-                            animate={{
-                                rotate: 360
-                            }}
-                            transition={{
-                                duration: 60,
-                                repeat: Infinity,
-                                ease: "linear"
-                            }}
+                            className="absolute w-[320px] h-[320px] md:w-[400px] md:h-[400px] rounded-full border-2 border-dashed border-emerald-500/20"
+                            animate={{ rotate: 360 }}
+                            transition={{ duration: 60, repeat: Infinity, ease: "linear" }}
                         />
                     </motion.div>
                 </div>
