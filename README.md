@@ -6,7 +6,7 @@
 
 > A modern, interactive, and performance-optimized portfolio showcasing my skills, projects, certifications, and experience as a Full-Stack Developer.
 
-**Live Site:** [https://my-portfolio-two-hazel-21.vercel.app/](https://my-portfolio-two-hazel-21.vercel.app/)
+**Live Site:** [https://my-portfolio-two-hazel-21.vercel.app/](https://my-portfolio-sigma-six-ratspe5jmr.vercel.app/)
 
 ---
 
