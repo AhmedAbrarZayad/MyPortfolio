@@ -27,53 +27,90 @@ export const projectsData = [
         image: InfraIncidents,
         images: [InfraIncidents, InfraServers, InfraAI, InfraAnalytics],
         featured: true,
-        description: 'AI-native infrastructure monitoring for server health, service-level anomalies, incident response, and telemetry-grounded guidance.',
-        fullDescription: 'A full-stack infrastructure operations platform that turns server and container telemetry into actionable incidents. It monitors infrastructure health, detects service-specific anomalies, alerts the right engineers, and uses Gemini to provide incident-aware diagnostic guidance.',
-        technologies: ['Flutter', 'Django', 'FastAPI', 'Isolation Forest', 'Gemini', 'Prometheus', 'Node Exporter', 'cAdvisor', 'Python'],
+        description: 'A secure command center that watches servers, spots unusual behavior, and helps teams investigate incidents faster.',
+        fullDescription: 'Infra Monitor gives operations teams one place to understand the health of their servers and services. It securely connects Linux machines, turns live activity into clear alerts, routes incidents to the right people, and provides an AI assistant grounded in real system evidence—not guesswork.',
+        technologies: ['Flutter', 'Django REST', 'FastAPI', 'PostgreSQL', 'Redis & Celery', 'VictoriaMetrics', 'Grafana Alloy', 'Isolation Forest', 'Gemini', 'Docker'],
         githubLink: 'https://github.com/AhmedAbrarZayad/Infra-Monitor',
         duration: 'Jul 2026 - Sep 2026',
-        category: 'Full Stack AI App',
+        category: 'Infrastructure & AI Platform',
         role: 'Full-Stack & ML Engineer',
         keyFeatures: [
             {
                 icon: 'ph-pulse',
-                title: 'Unified observability',
-                description: 'Tracks server health and deployed services through Prometheus, Node Exporter, and cAdvisor telemetry.'
+                title: 'Everything in one view',
+                description: 'Brings server health, containers, services, alerts, and incidents into a single cross-platform dashboard.'
             },
             {
                 icon: 'ph-warning-octagon',
-                title: 'Intelligent incidents',
-                description: 'Detects anomalies and crashes, creates incidents, and routes notifications to assigned responders.'
+                title: 'Problems found early',
+                description: 'Recognizes unusual behavior and service crashes, creates incidents, and notifies the people responsible.'
             },
             {
                 icon: 'ph-sparkle',
-                title: 'AI-assisted response',
-                description: 'Connects incident context to Gemini so engineers can investigate likely causes and next checks.'
+                title: 'Evidence-led AI help',
+                description: 'Lets engineers discuss an anomaly with an assistant that answers from recorded system evidence.'
             },
             {
                 icon: 'ph-users-three',
-                title: 'Organization-ready access',
-                description: 'Supports organization membership with Owner, Admin, and Engineer roles.'
+                title: 'Built for real teams',
+                description: 'Keeps each organization separate and gives Owners, Admins, and Engineers only the access they need.'
+            }
+        ],
+        capabilityGroups: [
+            {
+                icon: 'ph-hard-drives',
+                title: 'From server to signal',
+                description: 'A one-command setup securely enrolls Linux servers and begins collecting health data from hosts, containers, and labeled services.'
+            },
+            {
+                icon: 'ph-shield-check',
+                title: 'Security at every boundary',
+                description: 'Single-use enrollment links, one-time credentials, safe rotation, strict validation, and server-enforced permissions protect every organization.'
+            },
+            {
+                icon: 'ph-brain',
+                title: 'Useful intelligence, safely applied',
+                description: 'Machine learning identifies unusual patterns while deterministic rules remain in control. AI suggestions support people rather than taking action for them.'
+            },
+            {
+                icon: 'ph-siren',
+                title: 'A complete response workflow',
+                description: 'Teams can acknowledge, assign, investigate, document, and resolve incidents with notifications and an audit-friendly history.'
+            },
+            {
+                icon: 'ph-detective',
+                title: 'Request Shield',
+                description: 'Analyzes web traffic for threat patterns, explains the evidence, and sends uncertain cases for a second opinion without automatically blocking users.'
+            },
+            {
+                icon: 'ph-devices',
+                title: 'Operations from anywhere',
+                description: 'The Flutter application delivers role-aware monitoring and incident tools across mobile, web, and desktop platforms.'
             }
         ],
         architecture: [
-            { label: 'Client', value: 'Flutter operations dashboard' },
-            { label: 'Core API', value: 'Django, organizations, RBAC & incidents' },
-            { label: 'ML Service', value: 'FastAPI & service-specific Isolation Forest models' },
-            { label: 'Telemetry', value: 'Prometheus, Node Exporter & cAdvisor' },
-            { label: 'Intelligence', value: 'Gemini with incident context' }
+            { label: 'Experience', value: 'Flutter app for Android, iOS, web, Windows, Linux & macOS' },
+            { label: 'Product API', value: 'Domain-driven Django REST API with PostgreSQL and JWT authentication' },
+            { label: 'Async work', value: 'Redis, Celery workers, scheduled jobs & Firebase notifications' },
+            { label: 'Telemetry', value: 'Grafana Alloy → Prometheus Remote Write → multi-tenant VictoriaMetrics' },
+            { label: 'Machine learning', value: 'FastAPI, versioned Isolation Forest models & MLflow evaluation' },
+            { label: 'AI investigation', value: 'Gemini over authenticated WebSockets with permission-scoped evidence' },
+            { label: 'Security analytics', value: '26-feature request analysis with Random Forest classification' },
+            { label: 'Deployment', value: 'Docker Compose with health checks and dependency-aware startup' }
         ],
         challenges: [
-            'Building a reliable telemetry pipeline for both host-level and deployed-service metrics',
-            'Connecting the FastAPI ML service to train and evaluate models on service-specific telemetry instead of static predefined data',
-            'Selecting and filtering high-signal metrics for accurate anomaly detection',
-            'Reducing ML service latency to return anomaly results fast enough for an operational workflow'
+            'Designing a secure enrollment flow that reveals credentials once, resists replay, and supports safe, idempotent rotation',
+            'Keeping organization data isolated across the application, telemetry store, ML service, and live AI conversations',
+            'Building reliable feature windows from noisy system metrics while preserving identical feature ordering for training and inference',
+            'Separating probabilistic recommendations from authoritative health rules so AI can assist without controlling operational state'
         ],
         engineeringHighlights: [
-            'Separated the Django application API from the FastAPI inference service to keep product workflows and ML workloads independently maintainable',
-            'Designed anomaly detection around each monitored service so models learn its own operating behavior',
-            'Connected incidents, telemetry, ownership, notifications, and AI guidance into one response workflow',
-            'Implemented multi-tenant organization access with clear Owner, Admin, and Engineer responsibilities'
+            'Implemented Snappy-compressed Protobuf ingestion and trusted identity injection before routing metrics to isolated VictoriaMetrics tenants',
+            'Built versioned Isolation Forest inference in FastAPI, persisted anomaly evidence in Django, and evaluated models with MLflow and confusion matrices',
+            'Secured enrollment with expiring single-use tokens, SHA-256 credential hashes, constant-time comparison, atomic state transitions, and replay protection',
+            'Streamed permission-scoped Gemini investigations through single-use WebSocket tickets while keeping deterministic health rules authoritative',
+            'Created an asynchronous Request Shield pipeline using a consistent 26-feature vector, Random Forest threat zones, and human-reviewed suggestions',
+            'Covered authorization, telemetry, lifecycle, ML integration, and UI behavior with approximately 248 test definitions'
         ]
     },
     {

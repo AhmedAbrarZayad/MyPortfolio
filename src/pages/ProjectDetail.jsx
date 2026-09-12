@@ -66,11 +66,35 @@ const ProjectDetail = () => {
                         {project.keyFeatures.map((feature) => (
                             <div key={feature.title} className="rounded-xl border border-white/10 bg-white/[0.025] p-5">
                                 <i className={`ph ${feature.icon} text-2xl text-emerald-400`} aria-hidden="true" />
-                                <h2 className="mt-4 mb-2 font-bold text-white">{feature.title}</h2>
+                                <h2 className="mt-4 mb-2 font-bold text-gray-900 dark:text-white">{feature.title}</h2>
                                 <p className="text-sm leading-relaxed text-gray-400">{feature.description}</p>
                             </div>
                         ))}
                     </motion.div>
+                )}
+
+                {project.capabilityGroups && (
+                    <motion.section
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.6, delay: 0.15 }}
+                        className="mb-12"
+                    >
+                        <div className="mb-6 max-w-2xl">
+                            <p className="mb-2 font-mono text-xs uppercase tracking-[0.2em] text-primary">What I built</p>
+                            <h2 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white">More than a monitoring dashboard</h2>
+                            <p className="mt-3 text-gray-600 dark:text-gray-400">The project covers the full journey—from securely connecting a machine to helping a team understand and resolve a problem.</p>
+                        </div>
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                            {project.capabilityGroups.map((capability) => (
+                                <article key={capability.title} className="rounded-xl border border-gray-200 dark:border-white/10 bg-gray-50 dark:bg-white/[0.025] p-5">
+                                    <i className={`ph ${capability.icon} text-2xl text-primary`} aria-hidden="true" />
+                                    <h3 className="mt-4 mb-2 font-bold text-gray-900 dark:text-white">{capability.title}</h3>
+                                    <p className="text-sm leading-relaxed text-gray-600 dark:text-gray-400">{capability.description}</p>
+                                </article>
+                            ))}
+                        </div>
+                    </motion.section>
                 )}
 
                 {/* Project Images Gallery */}
@@ -136,7 +160,7 @@ const ProjectDetail = () => {
                             >
                                 <h2 className="text-2xl font-bold text-black dark:text-white mb-4 flex items-center gap-3">
                                     <i className="ph ph-tree-structure text-primary text-3xl"></i>
-                                    System Architecture
+                                    Under the Hood
                                 </h2>
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                                     {project.architecture.map((item) => (
@@ -157,7 +181,7 @@ const ProjectDetail = () => {
                         >
                             <h2 className="text-2xl font-bold text-black dark:text-white mb-4 flex items-center gap-3">
                                 <i className="ph ph-warning-circle text-primary text-3xl"></i>
-                                Challenges Faced
+                                Hard Problems Solved
                             </h2>
                             <div className="space-y-3">
                                 {project.challenges.map((challenge, index) => (
